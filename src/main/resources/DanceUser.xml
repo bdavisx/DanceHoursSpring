@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DanceUser">
+
+    <!-- Result maps describe the mapping between the columns returned
+    from a query, and the class properties.  A result map isn't
+    necessary if the columns (or aliases) match to the properties
+    exactly. -->
+    <resultMap id="DanceUserResult" type="DanceUser">
+        <result property="id" column="id" />
+        <result property="email" column="email" />
+        <result property="firstName" column="firstName" />
+        <result property="lastName" column="lastName" />
+        <result property="isActive" column="isActive" />
+        <result property="passwordHash" column="passwordHash" />
+    </resultMap>
+
+    <select id="selectUsers" resultMap="DanceUserResult">
+        select * from danceuser where isActive = true order by lastName, firstName
+    </select>
+
+    <!-- Insert example, using the Order parameter class -->
+    <insert id="insertOrder" parameterType="DanceUser">
+        insert into danceuser
+        (id, email, firstname, lastname, isactive, passwordhash) values
+        (#{id}, #{email}, #{firstName}, #{lastName}, #{passwordHash} )
+    </insert>
+
+</mapper>
+

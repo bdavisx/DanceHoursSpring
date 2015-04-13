@@ -1,4 +1,4 @@
-package com.tartner.dancehours.domain;
+package com.tartner.dancehours.database;
 
 public enum DanceUserType {
     Administrator,

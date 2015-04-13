@@ -1,20 +1,22 @@
 package com.tartner.dancehours.home;
 
-import com.tartner.dancehours.domain.DanceUser;
-import com.tartner.dancehours.domain.DanceUserType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.tartner.dancehours.database.DanceUser;
+import com.tartner.dancehours.database.DanceUserType;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class HomeController {
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SqlSessionFactory sqlSessionFactory;
 
 	private HomeController() {
 		int i = 5;
@@ -28,9 +30,11 @@ public class HomeController {
 		danceUser.setEmail( "bdavisx@yahoo.com" );
 		danceUser.setIsActive( true );
 		danceUser.setUserType( DanceUserType.Administrator );
-		final Session session = sessionFactory.openSession();
-		session.persist( danceUser );
-		session.close();
+
+		final SqlSession sqlSession = sqlSessionFactory.openSession();
+		final Configuration configuration = sqlSession.getConfiguration();
+		final List<DanceUser> users =
+			sqlSession.selectList( "DanceUser.selectUsers" );
 
 		return principal != null ? "home/homeSignedIn" : "home/homeNotSignedIn";
 	}
