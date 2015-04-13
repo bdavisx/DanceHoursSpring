@@ -18,7 +18,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.tartner.dancehours.config" })
 @PropertySource(value = { "classpath:persistence.properties" })
 public class HibernateConfiguration {
 

@@ -2,8 +2,6 @@ package com.tartner.dancehours.signup;
 
 import org.hibernate.validator.constraints.*;
 
-import com.tartner.dancehours.account.Account;
-
 public class SignupForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
@@ -32,7 +30,7 @@ public class SignupForm {
 		this.password = password;
 	}
 
-	public Account createAccount() {
-        return new Account(getEmail(), getPassword(), "ROLE_USER");
-	}
+//	public Account createAccount() {
+//        return new Account(getEmail(), getPassword(), "ROLE_USER");
+//	}
 }

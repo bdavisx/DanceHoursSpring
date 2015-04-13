@@ -1,16 +1,22 @@
 package com.tartner.dancehours.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.UUID;
 
 @Entity
 public class DanceUser {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @Column(name = "id")
+    private UUID id;
     private String firstName;
     private String lastName;
     private String email;
@@ -20,8 +26,8 @@ public class DanceUser {
     @Enumerated(EnumType.STRING)
     private DanceUserType userType;
 
-    public Long getId() { return id; }
-    public void setId( final Long id ) { this.id = id; }
+    public UUID getId() { return id; }
+    public void setId( final UUID id ) { this.id = id; }
     public String getFirstName() { return firstName; }
     public void setFirstName( final String firstName ) { this.firstName = firstName; }
     public String getLastName() { return lastName; }

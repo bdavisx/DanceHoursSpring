@@ -1,5 +1,5 @@
 create table DanceUser (
-    id bigint primary key not null,
+    id uuid primary key not null,
     Email varchar(254),
     FirstName varchar(255),
     LastName varchar(255),
