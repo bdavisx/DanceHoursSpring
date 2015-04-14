@@ -19,15 +19,16 @@ public class DanceHoursWebApplicationInitializer implements
         AnnotationConfigWebApplicationContext
             rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register( new Class<?>[] {
-            WebMVCConfiguration.class, PersistenceConfiguration.class } );
+            WebMVCConfiguration.class, PersistenceConfiguration.class,
+            SecurityConfig.class } );
         rootContext.setDisplayName("Dance Hours");
 
         //Context loader listener
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //Dispatcher servlet
-        ServletRegistration.Dynamic dispatcher =
-            servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
+            new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
     }
