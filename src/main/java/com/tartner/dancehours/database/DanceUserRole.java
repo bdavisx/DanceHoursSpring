@@ -1,6 +1,6 @@
 package com.tartner.dancehours.database;
 
-public enum DanceUserType {
+public enum DanceUserRole {
     Administrator,
     ParentGuardian,
     CompanyMember,

@@ -26,7 +26,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.tartner.dancehours.Application;
 
-@Configuration
+//@Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = Application.class,
     excludeFilters = @Filter({Configuration.class}))

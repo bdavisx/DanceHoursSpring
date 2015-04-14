@@ -1,5 +1,9 @@
 package com.tartner.dancehours.database;
 
+import com.google.common.collect.ImmutableList;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class DanceUser {
@@ -9,8 +13,14 @@ public class DanceUser {
     private String email;
     private boolean isActive;
     private long passwordHash;
+    private List<DanceUserRole> userRoles;
 
-    private DanceUserType userType;
+    public ImmutableList<DanceUserRole> getUserRoles() {
+        return ImmutableList.copyOf( userRoles );
+    }
+    public void setUserRoles( final List<DanceUserRole> userRoles ) {
+        this.userRoles = new ArrayList<>( userRoles );
+    }
 
     public UUID getId() { return id; }
     public void setId( final UUID id ) { this.id = id; }
@@ -24,6 +34,5 @@ public class DanceUser {
     public void setIsActive( final boolean isActive ) { this.isActive = isActive; }
     public long getPasswordHash() { return passwordHash; }
     public void setPasswordHash( final long passwordHash ) { this.passwordHash = passwordHash; }
-    public DanceUserType getUserType() { return userType; }
-    public void setUserType( final DanceUserType userType ) { this.userType = userType; }
+
 }

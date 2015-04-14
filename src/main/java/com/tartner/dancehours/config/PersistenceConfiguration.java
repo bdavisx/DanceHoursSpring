@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@Configuration
+//@Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:persistence.properties" })
 public class PersistenceConfiguration {
