@@ -22,10 +22,10 @@
     </select>
 
     <!-- Insert example, using the Order parameter class -->
-    <insert id="insertOrder" parameterType="DanceUser">
+    <insert id="insertUser" parameterType="DanceUser">
         insert into danceuser
         (id, email, firstname, lastname, isactive, passwordhash) values
-        (#{id}, #{email}, #{firstName}, #{lastName}, #{passwordHash} )
+        (#{id}, #{email}, #{firstName}, #{lastName}, #{isActive}, #{passwordHash} )
     </insert>
 
 </mapper>

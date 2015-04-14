@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class HomeController {
@@ -25,6 +26,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {
 		final DanceUser danceUser = new DanceUser();
+		danceUser.setId( UUID.randomUUID() );
 		danceUser.setFirstName( "Bill" );
 		danceUser.setLastName( "Davis" );
 		danceUser.setEmail( "bdavisx@yahoo.com" );
@@ -32,7 +34,7 @@ public class HomeController {
 		danceUser.setUserType( DanceUserType.Administrator );
 
 		final SqlSession sqlSession = sqlSessionFactory.openSession();
-		final Configuration configuration = sqlSession.getConfiguration();
+		sqlSession.insert( "DanceUser.insertUser", danceUser );
 		final List<DanceUser> users =
 			sqlSession.selectList( "DanceUser.selectUsers" );
 
