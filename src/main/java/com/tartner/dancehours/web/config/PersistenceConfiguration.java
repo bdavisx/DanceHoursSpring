@@ -1,4 +1,4 @@
-package com.tartner.dancehours.config;
+package com.tartner.dancehours.web.config;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -19,7 +16,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
-//@Configuration
+@Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:persistence.properties" })
 public class PersistenceConfiguration {
@@ -46,7 +43,7 @@ public class PersistenceConfiguration {
             return dataSource;
         } catch( SQLException ex ) {
             throw new IllegalArgumentException(
-                ("Can't find database url " + datasourceURL), ex );
+                ("Can't find domain url " + datasourceURL), ex );
         }
     }
 
@@ -64,10 +61,10 @@ public class PersistenceConfiguration {
         factory.setDataSource( dataSource() );
         factory.setConfigLocation( new FileSystemResource( "D:\\source\\DanceHoursSpring\\src\\main\\resources\\SQLMapConfig.xml" ) );
 //        factory.setMapperLocations( new Resource[] {
-//            new FileSystemResource( "D:\\source\\DanceHoursSpring\\src\\main\\java\\com\\tartner\\dancehours\\database\\DanceUser.xml" ) } );
+//            new FileSystemResource( "D:\\source\\DanceHoursSpring\\src\\main\\java\\com\\tartner\\dancehours\\domain\\DanceUser.xml" ) } );
 //        factory.setMapperLocations( ResourcePatternUtils
 //            .getResourcePatternResolver( resourceLoader ).getResources(
-//            "classpath*:com/tartner/dancehours/database/*.xml" ) );
+//            "classpath*:com/tartner/dancehours/domain/*.xml" ) );
         return factory;
     }
 }

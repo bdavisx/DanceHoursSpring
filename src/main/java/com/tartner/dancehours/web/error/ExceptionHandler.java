@@ -1,4 +1,4 @@
-package com.tartner.dancehours.error;
+package com.tartner.dancehours.web.error;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;

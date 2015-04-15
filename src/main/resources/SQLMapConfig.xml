@@ -9,7 +9,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="DanceUser" type="com.tartner.dancehours.database.DanceUser"/>
+        <typeAlias alias="DanceUser" type="com.tartner.dancehours.domain.DanceUser"/>
 
         <typeAlias alias="UUID" type="java.util.UUID"/>
         <typeAlias alias="UUIDTypeHandler" type="com.tartner.databasesupport.UUIDTypeHandler"/>

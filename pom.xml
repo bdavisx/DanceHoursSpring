@@ -85,7 +85,7 @@
             <version>${joda-time.version}</version>
         </dependency>
 
-        <!-- To map JodaTime with database type -->
+        <!-- To map JodaTime with domain type -->
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>

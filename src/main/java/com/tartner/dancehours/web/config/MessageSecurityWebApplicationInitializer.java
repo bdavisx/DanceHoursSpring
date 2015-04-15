@@ -1,4 +1,4 @@
-package com.tartner.dancehours.config;
+package com.tartner.dancehours.web.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -1,4 +1,4 @@
-package com.tartner.dancehours.database;
+package com.tartner.dancehours.domain;
 
 import com.google.common.collect.ImmutableList;
 

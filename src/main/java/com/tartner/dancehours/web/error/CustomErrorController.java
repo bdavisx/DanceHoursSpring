@@ -1,4 +1,4 @@
-package com.tartner.dancehours.error;
+package com.tartner.dancehours.web.error;
 
 import java.text.MessageFormat;
 

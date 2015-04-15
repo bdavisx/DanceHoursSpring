@@ -1,6 +1,6 @@
-package com.tartner.dancehours.support.web;
+package com.tartner.dancehours.web.support;
 
-import static com.tartner.dancehours.support.web.Message.MESSAGE_ATTRIBUTE;
+import static com.tartner.dancehours.web.support.Message.MESSAGE_ATTRIBUTE;
 
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;

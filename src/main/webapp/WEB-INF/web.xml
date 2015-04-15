@@ -19,7 +19,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				com.tartner.dancehours.config.WebMVCConfiguration
+				com.tartner.dancehours.web.config.WebMVCConfiguration
 			</param-value>
 		</init-param>
 	</servlet>
