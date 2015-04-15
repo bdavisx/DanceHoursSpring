@@ -21,6 +21,10 @@
         select * from danceuser where isActive = true order by lastName, firstName
     </select>
 
+    <select id="selectEmailCount" resultType="int">
+        select count(*) from danceuser where email = #{email}
+    </select>
+
     <!-- Insert example, using the Order parameter class -->
     <insert id="insertUser" parameterType="DanceUser">
         insert into danceuser

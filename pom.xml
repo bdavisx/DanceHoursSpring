@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java-version>1.8</java-version>
+        <axon.version>2.4</axon.version>
         <springframework.version>4.1.4.RELEASE</springframework.version>
         <springframework.security.version>3.2.0.RELEASE</springframework.security.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
@@ -24,6 +25,13 @@
     </properties>
 
     <dependencies>
+        <!-- Axon -->
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-core</artifactId>
+            <version>${axon.version}</version>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -178,6 +186,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-test</artifactId>
+            <version>${axon.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

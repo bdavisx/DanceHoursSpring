@@ -1,19 +1,19 @@
-drop table DanceUser;
-create table DanceUser (
-    userId uuid primary key not null,
-    Email varchar(254) not null,
-    FirstName varchar(255),
-    LastName varchar(255),
-    IsActive bool not null,
-    PasswordHash bigint not null,
-    UserType varchar(50)
+drop table dance_user;
+create table dance_user (
+    user_id uuid primary key not null,
+    email varchar(254) not null,
+    first_name varchar(255),
+    last_name varchar(255),
+    is_active bool not null,
+    password_hash bigint not null,
+    user_type varchar(50)
 );
-create index DanceUser_Name on DanceUser (LastName, FirstName);
+create index dance_user_index_name on dance_user (last_name, first_name);
 
-drop table DanceUserRoles;
-create table DanceUserRoles (
-    userId uuid not null,
-    roleId int not null,
-    primary key (userId, roleId)
+drop table dance_user_roles;
+create table dance_user_roles (
+    user_id uuid not null,
+    role_id int not null,
+    primary key (user_id, role_id)
 );
 

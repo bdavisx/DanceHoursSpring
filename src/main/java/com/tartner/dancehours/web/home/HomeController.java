@@ -10,9 +10,6 @@ import java.security.Principal;
 
 @Controller
 public class HomeController {
-	@Autowired
-	private SqlSessionFactory sqlSessionFactory;
-
 	private HomeController() {
 		int i = 5;
 	}
