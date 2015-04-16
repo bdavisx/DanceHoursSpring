@@ -17,11 +17,6 @@ package com.tartner.dancehours.database;
 public class Tables {
 
 	/**
-	 * The table public.account
-	 */
-	public static final com.tartner.dancehours.database.tables.Account ACCOUNT = com.tartner.dancehours.database.tables.Account.ACCOUNT;
-
-	/**
 	 * The table public.dance_user
 	 */
 	public static final com.tartner.dancehours.database.tables.DanceUser DANCE_USER = com.tartner.dancehours.database.tables.DanceUser.DANCE_USER;

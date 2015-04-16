@@ -16,7 +16,7 @@ package com.tartner.dancehours.database;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends org.jooq.impl.SchemaImpl {
 
-	private static final long serialVersionUID = 1393374536;
+	private static final long serialVersionUID = 266356946;
 
 	/**
 	 * The reference instance of <code>public</code>
@@ -39,7 +39,6 @@ public class Public extends org.jooq.impl.SchemaImpl {
 
 	private final java.util.List<org.jooq.Table<?>> getTables0() {
 		return java.util.Arrays.<org.jooq.Table<?>>asList(
-			com.tartner.dancehours.database.tables.Account.ACCOUNT,
 			com.tartner.dancehours.database.tables.DanceUser.DANCE_USER,
 			com.tartner.dancehours.database.tables.DanceUserRoles.DANCE_USER_ROLES);
 	}

@@ -1,22 +1,27 @@
 package com.tartner.dancehours.web.config;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.postgresql.ds.PGSimpleDataSource;
+import com.tartner.databasesupport.ExceptionTranslator;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.jooq.Configuration;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DataSourceConnectionProvider;
+import org.jooq.impl.DefaultConfiguration;
+import org.jooq.impl.DefaultDSLContext;
+import org.jooq.impl.DefaultExecuteListenerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
 
-@Configuration
+
+@org.springframework.context.annotation.Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:persistence.properties" })
 public class PersistenceConfiguration {
@@ -35,16 +40,12 @@ public class PersistenceConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        try {
-            PGSimpleDataSource dataSource = new PGSimpleDataSource();
-            dataSource.setUrl( datasourceURL );
-            dataSource.setUser( username );
-            dataSource.setPassword( password );
-            return dataSource;
-        } catch( SQLException ex ) {
-            throw new IllegalArgumentException(
-                ("Can't find domain url " + datasourceURL), ex );
-        }
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl( datasourceURL );
+        dataSource.setUsername( username );
+        dataSource.setPassword( password );
+        dataSource.setDriverClassName( driverClassName );
+        return dataSource;
     }
 
     @Bean
@@ -56,15 +57,35 @@ public class PersistenceConfiguration {
     }
 
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
-        SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
-        factory.setDataSource( dataSource() );
-        factory.setConfigLocation( new FileSystemResource( "D:\\source\\DanceHoursSpring\\src\\main\\resources\\SQLMapConfig.xml" ) );
-//        factory.setMapperLocations( new Resource[] {
-//            new FileSystemResource( "D:\\source\\DanceHoursSpring\\src\\main\\java\\com\\tartner\\dancehours\\domain\\DanceUser.xml" ) } );
-//        factory.setMapperLocations( ResourcePatternUtils
-//            .getResourcePatternResolver( resourceLoader ).getResources(
-//            "classpath*:com/tartner/dancehours/domain/*.xml" ) );
-        return factory;
+    public TransactionAwareDataSourceProxy transactionAwareDataSource() {
+        return new TransactionAwareDataSourceProxy( dataSource() );
+    }
+
+    @Bean
+    public DataSourceConnectionProvider connectionProvider() {
+        return new DataSourceConnectionProvider(
+            transactionAwareDataSource().getTargetDataSource() );
+    }
+
+    @Bean
+    public DSLContext dsl() {
+        return new DefaultDSLContext( jooqConfiguration() );
+    }
+
+    @Bean
+    public Configuration jooqConfiguration() {
+        DefaultConfiguration configuration = new DefaultConfiguration();
+        configuration.setSQLDialect( SQLDialect.POSTGRES );
+        configuration.setConnectionProvider( connectionProvider() );
+        configuration.setExecuteListenerProvider(
+            new DefaultExecuteListenerProvider[]{
+                new DefaultExecuteListenerProvider( exceptionTranslator() )
+            } );
+        return configuration;
+    }
+
+    @Bean
+    public ExceptionTranslator exceptionTranslator() {
+        return new ExceptionTranslator();
     }
 }

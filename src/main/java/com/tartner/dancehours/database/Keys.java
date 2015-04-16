@@ -26,8 +26,6 @@ public class Keys {
 	// UNIQUE and PRIMARY KEY definitions
 	// -------------------------------------------------------------------------
 
-	public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.AccountRecord> ACCOUNT_PKEY = UniqueKeys0.ACCOUNT_PKEY;
-	public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.AccountRecord> UK_Q0UJA26QGU1ATULENWUP9RXYR = UniqueKeys0.UK_Q0UJA26QGU1ATULENWUP9RXYR;
 	public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.DanceUserRecord> DANCE_USER_PKEY = UniqueKeys0.DANCE_USER_PKEY;
 	public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.DanceUserRolesRecord> DANCE_USER_ROLES_PKEY = UniqueKeys0.DANCE_USER_ROLES_PKEY;
 
@@ -41,8 +39,6 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
-		public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.AccountRecord> ACCOUNT_PKEY = createUniqueKey(com.tartner.dancehours.database.tables.Account.ACCOUNT, com.tartner.dancehours.database.tables.Account.ACCOUNT.ID);
-		public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.AccountRecord> UK_Q0UJA26QGU1ATULENWUP9RXYR = createUniqueKey(com.tartner.dancehours.database.tables.Account.ACCOUNT, com.tartner.dancehours.database.tables.Account.ACCOUNT.EMAIL);
 		public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.DanceUserRecord> DANCE_USER_PKEY = createUniqueKey(com.tartner.dancehours.database.tables.DanceUser.DANCE_USER, com.tartner.dancehours.database.tables.DanceUser.DANCE_USER.USER_ID);
 		public static final org.jooq.UniqueKey<com.tartner.dancehours.database.tables.records.DanceUserRolesRecord> DANCE_USER_ROLES_PKEY = createUniqueKey(com.tartner.dancehours.database.tables.DanceUserRoles.DANCE_USER_ROLES, com.tartner.dancehours.database.tables.DanceUserRoles.DANCE_USER_ROLES.USER_ID, com.tartner.dancehours.database.tables.DanceUserRoles.DANCE_USER_ROLES.ROLE_ID);
 	}
