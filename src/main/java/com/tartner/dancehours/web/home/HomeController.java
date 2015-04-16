@@ -8,9 +8,6 @@ import java.security.Principal;
 
 @Controller
 public class HomeController {
-	private HomeController() {
-		int i = 5;
-	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {
