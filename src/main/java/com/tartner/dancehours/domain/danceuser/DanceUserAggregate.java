@@ -1,7 +1,10 @@
 package com.tartner.dancehours.domain.danceuser;
 
 import com.google.common.base.Preconditions;
-import com.tartner.dancehours.events.danceuser.DanceUserCreatedEvent;
+import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
+import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
+import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
+import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
@@ -18,21 +21,15 @@ public class DanceUserAggregate extends AbstractAnnotatedAggregateRoot<UUID> {
     private long passwordHash;
     private List<DanceUserRole> userRoles;
 
-    public void initalize( final UUID userId, final String email,
-        final String lastName, final String firstName ) {
-        Preconditions.checkNotNull( userId );
-        Preconditions.checkNotNull( email );
-        Preconditions.checkArgument( !email.isEmpty() );
-        Preconditions.checkNotNull( lastName );
-        Preconditions.checkArgument( !lastName.isEmpty() );
-        Preconditions.checkNotNull( firstName );
-        Preconditions.checkArgument( !firstName.isEmpty() );
-
+    void initialize( final UUID userId, final String email,
+        final String lastName, final String firstName,
+        DanceUserAggregateQueryModel queryModel ) {
+        /* Note: do we want the "regular" or "container" parameters first?
+            "regular": they are the more important part of the method.
+         */
         // todo: setup saga for email validation (optional based on settings)
-        // todo: consider other validations
 
-        // todo: check for same userId
-        // todo: check for same email
+        validateInitialize( userId, email, lastName, firstName, queryModel );
 
         DanceUserCreatedEvent event = new DanceUserCreatedEvent();
         event.setUserId( userId );
@@ -49,4 +46,24 @@ public class DanceUserAggregate extends AbstractAnnotatedAggregateRoot<UUID> {
         lastName = event.getLastName();
         firstName = event.getFirstName();
     }
+
+    private void validateInitialize( final UUID userId, final String email,
+        final String lastName, final String firstName,
+        final DanceUserAggregateQueryModel queryModel ) {
+        Preconditions.checkNotNull( userId );
+        Preconditions.checkNotNull( email );
+        Preconditions.checkArgument( !email.isEmpty() );
+        Preconditions.checkNotNull( lastName );
+        Preconditions.checkArgument( !lastName.isEmpty() );
+        Preconditions.checkNotNull( firstName );
+        Preconditions.checkArgument( !firstName.isEmpty() );
+
+        if (queryModel.emailAlreadyExists( email )) {
+            throw new DanceUserEmailAlreadyExistsException( email );
+        }
+        if (queryModel.userIdAlreadyExists( userId )) {
+            throw new DanceUserIdAlreadyExistsException( userId );
+        }
+    }
+
 }

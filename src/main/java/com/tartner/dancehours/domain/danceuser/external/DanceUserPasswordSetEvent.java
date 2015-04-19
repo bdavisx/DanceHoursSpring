@@ -1,4 +1,4 @@
-package com.tartner.dancehours.events.danceuser;
+package com.tartner.dancehours.domain.danceuser.external;
 
 public class DanceUserPasswordSetEvent {
     private byte[] passwordHash;

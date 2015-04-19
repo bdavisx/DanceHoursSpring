@@ -1,4 +1,4 @@
-package com.tartner.dancehours.commands.danceuser;
+package com.tartner.dancehours.domain.danceuser.external;
 
 import com.tartner.dancehours.domain.danceuser.DanceUserRole;
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
