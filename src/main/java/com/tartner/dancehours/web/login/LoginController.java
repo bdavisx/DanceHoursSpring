@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-import static com.tartner.dancehours.database.Tables.DANCE_USER;
+import static com.tartner.dancehours.querymodel.database.tables.DanceUser.DANCE_USER;
 
 @Controller
 public class LoginController {

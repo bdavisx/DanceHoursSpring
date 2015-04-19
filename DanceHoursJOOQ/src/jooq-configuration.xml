@@ -31,7 +31,7 @@
         </generate>
 
         <target>
-            <packageName>com.tartner.dancehours.database</packageName>
+            <packageName>com.tartner.dancehours.querymodel.database</packageName>
 
             <!-- The destination directory of your generated classes -->
             <directory>D:/source/DanceHoursSpring/src/main/java</directory>

@@ -31,7 +31,11 @@
             <artifactId>axon-core</artifactId>
             <version>${axon.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>0.7.4</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>

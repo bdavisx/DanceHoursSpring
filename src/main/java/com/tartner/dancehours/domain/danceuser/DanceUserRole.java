@@ -1,4 +1,4 @@
-package com.tartner.dancehours.domain;
+package com.tartner.dancehours.domain.danceuser;
 
 public enum DanceUserRole {
     Administrator,
