@@ -1,6 +1,7 @@
 package com.tartner.dancehours.domain.danceuser;
 
 import com.google.common.base.Preconditions;
+import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
@@ -21,7 +22,13 @@ public class DanceUserAggregate extends AbstractAnnotatedAggregateRoot<UUID> {
     private long passwordHash;
     private List<DanceUserRole> userRoles;
 
-    void initialize( final UUID userId, final String email,
+    public void create( final CreateDanceUserCommand command,
+        final DanceUserAggregateQueryModel queryModel ) {
+        initialize( command.getUserId(), command.getEmail(),
+            command.getLastName(), command.getFirstName(), queryModel );
+    }
+
+    private void initialize( final UUID userId, final String email,
         final String lastName, final String firstName,
         DanceUserAggregateQueryModel queryModel ) {
         /* Note: do we want the "regular" or "container" parameters first?

@@ -28,10 +28,16 @@ public class DanceUserAggregateTest {
     public static final String CreatePassword = "notReal";
 
     private FixtureConfiguration fixture;
+    private CreateDanceUserCommand createCommand;
+    private DanceUserCreatedEvent createdEvent;
+    private DanceUserAggregateQueryModel queryModelMock;
 
     @Before
     public void setUp() throws Exception {
         fixture = Fixtures.newGivenWhenThenFixture( DanceUserAggregate.class );
+        createCommand = createValidCreateCommand();
+        createdEvent = createCreatedEventForValidCommand( createCommand );
+        queryModelMock = mock( DanceUserAggregateQueryModel.class );
     }
 
     @Test
@@ -40,17 +46,9 @@ public class DanceUserAggregateTest {
             together because they act as a unit. The command handler should
             only be the container managed side of the unit, it shouldn't
             be doing anything else. */
-        CreateDanceUserCommand command = createValidCreateCommand();
-
-        DanceUserCreatedEvent event =
-            createCreatedEventForValidCommand( command );
-
-        DanceUserAggregateQueryModel queryModelMock  =
-            mock( DanceUserAggregateQueryModel.class );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.initialize( CreateUserId, CreateEmail, CreateLastName, CreateFirstName,
-            queryModelMock );
+        user.create( createCommand, queryModelMock );
 
         verify( queryModelMock ).emailAlreadyExists( CreateEmail );
         verify( queryModelMock ).userIdAlreadyExists( CreateUserId );
@@ -58,7 +56,7 @@ public class DanceUserAggregateTest {
         final DomainEventStream events = user.getUncommittedEvents();
         final DomainEventMessage next = events.next();
         final Object payload = next.getPayload();
-        assertThat( event, equalTo( payload ) );
+        assertThat( createdEvent, equalTo( payload ) );
     }
 
     @Test( expected = DanceUserIdAlreadyExistsException.class )
@@ -73,8 +71,7 @@ public class DanceUserAggregateTest {
         when( queryModelMock.userIdAlreadyExists( CreateUserId ) ).thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.initialize( CreateUserId, CreateEmail, CreateLastName, CreateFirstName,
-            queryModelMock );
+        user.create( createCommand, queryModelMock );
     }
 
     @Test( expected = DanceUserEmailAlreadyExistsException.class )
@@ -89,8 +86,7 @@ public class DanceUserAggregateTest {
         when( queryModelMock.emailAlreadyExists( CreateEmail ) ).thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.initialize( CreateUserId, CreateEmail, CreateLastName, CreateFirstName,
-            queryModelMock );
+        user.create( createCommand, queryModelMock );
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
