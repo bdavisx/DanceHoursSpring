@@ -2,6 +2,8 @@ package com.tartner.utilities.password;
 
 import com.google.common.base.Objects;
 
+import java.util.Arrays;
+
 public class EncodedPassword {
     private final byte[] passwordHash;
     private final byte[] salt;
@@ -12,7 +14,7 @@ public class EncodedPassword {
     }
 
     public boolean matches( final byte[] passwordHash ) {
-        return Objects.equal( this.passwordHash, passwordHash );
+        return Arrays.equals( this.passwordHash, passwordHash );
     }
 
     public byte[] getSalt() { return salt; }
@@ -22,9 +24,7 @@ public class EncodedPassword {
         if( this == o ) { return true; }
         if( o == null || getClass() != o.getClass() ) { return false; }
         final EncodedPassword that = (EncodedPassword) o;
-        return Objects
-            .equal( passwordHash, that.passwordHash ) &&
-            Objects.equal( salt, that.salt );
+        return matches( that.passwordHash ) && Objects.equal( salt, that.salt );
     }
 
     @Override
