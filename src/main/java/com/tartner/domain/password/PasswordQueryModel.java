@@ -25,11 +25,18 @@ public class PasswordQueryModel {
         final AggregatePasswords aggregatePassword =
             dao.fetchOneByAggregateId( aggregateId );
 
+        return passwordsMatch( password, aggregatePassword.getPasswordHash(),
+            aggregatePassword.getSalt() );
+    }
+
+    public boolean passwordsMatch( final String password,
+        final byte[] passwordHashToCompareAgainst, final byte[] salt ) {
+
         KeySpec keySpecification = passwordService
-            .createKeySpecification( password, aggregatePassword.getSalt() );
+            .createKeySpecification( password, salt );
         final byte[] passwordHash =
             passwordService.createPasswordHash( keySpecification );
-        return matches( aggregatePassword.getPasswordHash(), passwordHash  );
+        return matches( passwordHashToCompareAgainst, passwordHash  );
     }
 
     private boolean matches( final byte[] expectedPasswordHash,
