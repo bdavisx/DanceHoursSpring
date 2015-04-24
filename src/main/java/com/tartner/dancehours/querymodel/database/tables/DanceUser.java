@@ -16,7 +16,7 @@ package com.tartner.dancehours.querymodel.database.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DanceUser extends org.jooq.impl.TableImpl<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord> {
 
-	private static final long serialVersionUID = -1821348643;
+	private static final long serialVersionUID = 1796835760;
 
 	/**
 	 * The reference instance of <code>public.dance_user</code>
@@ -55,11 +55,6 @@ public class DanceUser extends org.jooq.impl.TableImpl<com.tartner.dancehours.qu
 	 * The column <code>public.dance_user.is_active</code>.
 	 */
 	public final org.jooq.TableField<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord, java.lang.Boolean> IS_ACTIVE = createField("is_active", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
-
-	/**
-	 * The column <code>public.dance_user.password_hash</code>.
-	 */
-	public final org.jooq.TableField<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord, java.lang.Long> PASSWORD_HASH = createField("password_hash", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
 	/**
 	 * The column <code>public.dance_user.user_type</code>.
@@ -101,8 +96,7 @@ public class DanceUser extends org.jooq.impl.TableImpl<com.tartner.dancehours.qu
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord>>asList(
-			com.tartner.dancehours.querymodel.database.Keys.DANCE_USER_PKEY);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord>>asList(com.tartner.dancehours.querymodel.database.Keys.DANCE_USER_PKEY);
 	}
 
 	/**

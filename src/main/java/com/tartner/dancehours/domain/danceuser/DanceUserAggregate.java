@@ -6,7 +6,7 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryM
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
-import com.tartner.utilities.password.EncodedPassword;
+import com.tartner.domain.password.EncodedPassword;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;

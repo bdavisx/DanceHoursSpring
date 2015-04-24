@@ -17,6 +17,11 @@ package com.tartner.dancehours.querymodel.database;
 public class Tables {
 
 	/**
+	 * The table public.aggregate_passwords
+	 */
+	public static final com.tartner.dancehours.querymodel.database.tables.AggregatePasswords AGGREGATE_PASSWORDS = com.tartner.dancehours.querymodel.database.tables.AggregatePasswords.AGGREGATE_PASSWORDS;
+
+	/**
 	 * The table public.dance_user
 	 */
 	public static final com.tartner.dancehours.querymodel.database.tables.DanceUser DANCE_USER = com.tartner.dancehours.querymodel.database.tables.DanceUser.DANCE_USER;
@@ -25,4 +30,9 @@ public class Tables {
 	 * The table public.dance_user_roles
 	 */
 	public static final com.tartner.dancehours.querymodel.database.tables.DanceUserRoles DANCE_USER_ROLES = com.tartner.dancehours.querymodel.database.tables.DanceUserRoles.DANCE_USER_ROLES;
+
+	/**
+	 * The table public.domainevententry
+	 */
+	public static final com.tartner.dancehours.querymodel.database.tables.Domainevententry DOMAINEVENTENTRY = com.tartner.dancehours.querymodel.database.tables.Domainevententry.DOMAINEVENTENTRY;
 }

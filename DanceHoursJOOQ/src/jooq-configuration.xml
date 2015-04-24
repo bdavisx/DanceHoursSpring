@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
+
     <!-- Configure the database connection here -->
     <jdbc>
         <driver>org.postgresql.Driver</driver>
@@ -28,6 +29,8 @@
 
         <generate>
             <!-- Generation flags: See advanced configuration properties -->
+            <daos>true</daos>
+            <fluentSetters>true</fluentSetters>
         </generate>
 
         <target>

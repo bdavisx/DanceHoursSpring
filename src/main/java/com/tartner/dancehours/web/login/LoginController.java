@@ -24,7 +24,6 @@ public class LoginController {
             .set( DANCE_USER.LAST_NAME, "Davis" )
             .set( DANCE_USER.IS_ACTIVE, true )
             .set( DANCE_USER.USER_TYPE, "" )
-            .set( DANCE_USER.PASSWORD_HASH, 0L )
             .execute();
 
         return "login/login";

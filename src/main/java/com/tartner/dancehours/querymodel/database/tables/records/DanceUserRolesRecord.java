@@ -16,13 +16,14 @@ package com.tartner.dancehours.querymodel.database.tables.records;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DanceUserRolesRecord extends org.jooq.impl.UpdatableRecordImpl<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRolesRecord> implements org.jooq.Record2<java.util.UUID, java.lang.Integer> {
 
-	private static final long serialVersionUID = 412163851;
+	private static final long serialVersionUID = -138472753;
 
 	/**
 	 * Setter for <code>public.dance_user_roles.user_id</code>.
 	 */
-	public void setUserId(java.util.UUID value) {
+	public DanceUserRolesRecord setUserId(java.util.UUID value) {
 		setValue(0, value);
+		return this;
 	}
 
 	/**
@@ -35,8 +36,9 @@ public class DanceUserRolesRecord extends org.jooq.impl.UpdatableRecordImpl<com.
 	/**
 	 * Setter for <code>public.dance_user_roles.role_id</code>.
 	 */
-	public void setRoleId(java.lang.Integer value) {
+	public DanceUserRolesRecord setRoleId(java.lang.Integer value) {
 		setValue(1, value);
+		return this;
 	}
 
 	/**
@@ -144,14 +146,14 @@ public class DanceUserRolesRecord extends org.jooq.impl.UpdatableRecordImpl<com.
 	 * Create a detached DanceUserRolesRecord
 	 */
 	public DanceUserRolesRecord() {
-		super( com.tartner.dancehours.querymodel.database.tables.DanceUserRoles.DANCE_USER_ROLES);
+		super(com.tartner.dancehours.querymodel.database.tables.DanceUserRoles.DANCE_USER_ROLES);
 	}
 
 	/**
 	 * Create a detached, initialised DanceUserRolesRecord
 	 */
 	public DanceUserRolesRecord(java.util.UUID userId, java.lang.Integer roleId) {
-		super( com.tartner.dancehours.querymodel.database.tables.DanceUserRoles.DANCE_USER_ROLES);
+		super(com.tartner.dancehours.querymodel.database.tables.DanceUserRoles.DANCE_USER_ROLES);
 
 		setValue(0, userId);
 		setValue(1, roleId);

@@ -16,7 +16,7 @@ package com.tartner.dancehours.querymodel.database.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DanceUserRoles extends org.jooq.impl.TableImpl<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRolesRecord> {
 
-	private static final long serialVersionUID = 726337915;
+	private static final long serialVersionUID = -540143686;
 
 	/**
 	 * The reference instance of <code>public.dance_user_roles</code>
@@ -76,8 +76,7 @@ public class DanceUserRoles extends org.jooq.impl.TableImpl<com.tartner.dancehou
 	 */
 	@Override
 	public java.util.List<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRolesRecord>> getKeys() {
-		return java.util.Arrays.<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRolesRecord>>asList(
-			com.tartner.dancehours.querymodel.database.Keys.DANCE_USER_ROLES_PKEY);
+		return java.util.Arrays.<org.jooq.UniqueKey<com.tartner.dancehours.querymodel.database.tables.records.DanceUserRolesRecord>>asList(com.tartner.dancehours.querymodel.database.Keys.DANCE_USER_ROLES_PKEY);
 	}
 
 	/**
