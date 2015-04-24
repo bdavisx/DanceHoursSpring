@@ -2,7 +2,6 @@ package com.tartner.domain.password;
 
 import com.thoughtworks.xstream.XStream;
 
-import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
@@ -32,9 +31,11 @@ public class PasswordGenerator {
         byte[] salt = SecureRandom.getInstanceStrong().generateSeed(
             SaltLength );
 
-        KeySpec keySpecification = createKeySpecification( password, salt );
+        KeySpec keySpecification =
+            passwordService.createKeySpecification( password, salt );
 
-        final byte[] passwordHash = createPasswordHash( keySpecification );
+        final byte[] passwordHash =
+            passwordService.createPasswordHash( keySpecification );
         TestPasswordHolder holder = new TestPasswordHolder();
         holder.passwordHash = passwordHash;
         holder.salt = salt;
@@ -49,12 +50,4 @@ public class PasswordGenerator {
         return Arrays.equals( expectedPasswordHash, passwordHash );
     }
 
-    private byte[] createPasswordHash( final KeySpec keySpecification ) {
-        return passwordService.createPasswordHash( keySpecification );
-    }
-
-    private PBEKeySpec createKeySpecification( final String password,
-        final byte[] salt ) {
-        return passwordService.createKeySpecification( password, salt );
-    }
 }

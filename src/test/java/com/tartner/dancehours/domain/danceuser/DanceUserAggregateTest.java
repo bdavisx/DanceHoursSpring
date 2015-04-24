@@ -68,7 +68,8 @@ public class DanceUserAggregateTest {
 
         DanceUserAggregateQueryModel queryModelMock  =
             mock( DanceUserAggregateQueryModel.class );
-        when( queryModelMock.userIdAlreadyExists( CreateUserId ) ).thenReturn( true );
+        when( queryModelMock.userIdAlreadyExists( CreateUserId ) )
+            .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
         user.create( createCommand, queryModelMock );
@@ -81,9 +82,10 @@ public class DanceUserAggregateTest {
         DanceUserCreatedEvent event =
             createCreatedEventForValidCommand( command );
 
-        DanceUserAggregateQueryModel queryModelMock  =
+        DanceUserAggregateQueryModel queryModelMock =
             mock( DanceUserAggregateQueryModel.class );
-        when( queryModelMock.emailAlreadyExists( CreateEmail ) ).thenReturn( true );
+        when( queryModelMock.emailAlreadyExists( CreateEmail ) )
+            .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
         user.create( createCommand, queryModelMock );

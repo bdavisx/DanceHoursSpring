@@ -2,7 +2,13 @@ package com.tartner.domain.password;
 
 import com.thoughtworks.xstream.XStream;
 
+/** This class has a pre-generated passwordHash and Salt from the
+    DefaultMatchingPassword that you can use when testing password code.
+ */
+
 public class TestPasswordHolder {
+    public static final String DefaultMatchingPassword = "P@ssw0rd";
+
     public static final String TestHolderDefaultXStreamXML =
         "<com.tartner.domain.password.TestPasswordHolder>\n" +
             "  <passwordHash>M1oUJRFvTJIfY77zzcV+bWz0dLvT7b37QzeRXIogjW0=</passwordHash>\n" +

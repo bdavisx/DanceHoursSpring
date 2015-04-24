@@ -4,7 +4,6 @@ import com.tartner.dancehours.querymodel.database.tables.daos.AggregatePasswords
 import com.tartner.dancehours.querymodel.database.tables.pojos.AggregatePasswords;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.crypto.spec.PBEKeySpec;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.UUID;
@@ -26,9 +25,10 @@ public class PasswordQueryModel {
         final AggregatePasswords aggregatePassword =
             dao.fetchOneByAggregateId( aggregateId );
 
-        KeySpec keySpecification = createKeySpecification( password,
-            aggregatePassword.getSalt() );
-        final byte[] passwordHash = createPasswordHash( keySpecification );
+        KeySpec keySpecification = passwordService
+            .createKeySpecification( password, aggregatePassword.getSalt() );
+        final byte[] passwordHash =
+            passwordService.createPasswordHash( keySpecification );
         return matches( aggregatePassword.getPasswordHash(), passwordHash  );
     }
 
@@ -37,12 +37,4 @@ public class PasswordQueryModel {
         return Arrays.equals( expectedPasswordHash, passwordHash );
     }
 
-    private byte[] createPasswordHash( final KeySpec keySpecification ) {
-        return passwordService.createPasswordHash( keySpecification );
-    }
-
-    private PBEKeySpec createKeySpecification( final String password,
-        final byte[] salt ) {
-        return passwordService.createKeySpecification( password, salt );
-    }
 }
