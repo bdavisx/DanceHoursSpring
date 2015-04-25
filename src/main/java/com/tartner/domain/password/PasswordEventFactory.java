@@ -2,6 +2,7 @@ package com.tartner.domain.password;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
@@ -17,8 +18,10 @@ public class PasswordEventFactory {
 
     private static final int SaltLength = 32;
 
-    private final SecureRandom random;
-    private final PasswordService passwordService;
+    @Autowired private SecureRandom random;
+    @Autowired private PasswordService passwordService;
+
+    public PasswordEventFactory() {}
 
     public PasswordEventFactory( final SecureRandom random,
         final PasswordService passwordService ) {

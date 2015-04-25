@@ -7,16 +7,16 @@ import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
-public class PasswordGenerator {
+public class TestPasswordDataGenerator {
     private PasswordService passwordService;
 
-    public PasswordGenerator( final PasswordService passwordService ) {
+    public TestPasswordDataGenerator( final PasswordService passwordService ) {
         this.passwordService = passwordService;
     }
 
     public static void main( String[] args ) {
         PasswordService service = new PasswordService();
-        PasswordGenerator me = new PasswordGenerator( service );
+        TestPasswordDataGenerator me = new TestPasswordDataGenerator( service );
         try {
             me.makePassword( "P@ssw0rd" );
         } catch( NoSuchAlgorithmException e ) {

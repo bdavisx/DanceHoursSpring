@@ -1,3 +1,3 @@
-package com.tartner.dancehours;
+package com.tartner;
 
 public interface Application {}

@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
-class PasswordService {
+public class PasswordService {
     // The higher the number of iterations the more
     // expensive computing the hash is for us and
     // also for an attacker.

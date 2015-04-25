@@ -23,11 +23,10 @@ import javax.sql.DataSource;
 
 @org.springframework.context.annotation.Configuration
 @EnableTransactionManagement
-@PropertySource(value = { "classpath:persistence.properties" })
-public class PersistenceConfiguration {
+@PropertySource(value = { "/persistence.properties" })
+public class ProductionPersistenceConfiguration {
 
-    @Autowired
-    private ResourceLoader resourceLoader;
+    @Autowired private ResourceLoader resourceLoader;
 
     @Value("${dataSource.driverClassName}")
     private String driverClassName;
@@ -38,6 +37,9 @@ public class PersistenceConfiguration {
     @Value("${dataSource.password}")
     private String password;
 
+    @Value("${jooq.sql.dialect}")
+    private String jooqSQLDialect;
+
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -46,6 +48,19 @@ public class PersistenceConfiguration {
         dataSource.setPassword( password );
         dataSource.setDriverClassName( driverClassName );
         return dataSource;
+    }
+
+    @Bean
+    public Configuration jooqConfiguration() {
+        DefaultConfiguration configuration = new DefaultConfiguration();
+        SQLDialect dialect = SQLDialect.POSTGRES;
+        configuration.setSQLDialect( dialect );
+        configuration.setConnectionProvider( connectionProvider() );
+        configuration.setExecuteListenerProvider(
+            new DefaultExecuteListenerProvider[]{
+                new DefaultExecuteListenerProvider( exceptionTranslator() )
+            } );
+        return configuration;
     }
 
     @Bean
@@ -70,18 +85,6 @@ public class PersistenceConfiguration {
     @Bean
     public DSLContext dsl() {
         return new DefaultDSLContext( jooqConfiguration() );
-    }
-
-    @Bean
-    public Configuration jooqConfiguration() {
-        DefaultConfiguration configuration = new DefaultConfiguration();
-        configuration.setSQLDialect( SQLDialect.POSTGRES );
-        configuration.setConnectionProvider( connectionProvider() );
-        configuration.setExecuteListenerProvider(
-            new DefaultExecuteListenerProvider[]{
-                new DefaultExecuteListenerProvider( exceptionTranslator() )
-            } );
-        return configuration;
     }
 
     @Bean

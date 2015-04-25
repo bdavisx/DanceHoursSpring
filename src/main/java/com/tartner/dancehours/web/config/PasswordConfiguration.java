@@ -1,60 +1,39 @@
 package com.tartner.dancehours.web.config;
 
-import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.SimpleCommandBus;
-import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
-import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
-import org.axonframework.eventhandling.EventBus;
-import org.axonframework.eventhandling.SimpleEventBus;
-import org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor;
-import org.axonframework.eventstore.EventStore;
-import org.axonframework.eventstore.jdbc.JdbcEventStore;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tartner.domain.password.PasswordEventFactory;
+import com.tartner.domain.password.PasswordProjector;
+import com.tartner.domain.password.PasswordQueryModel;
+import com.tartner.domain.password.PasswordService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 @Configuration
 public class PasswordConfiguration {
-    @Autowired
-    private DataSource dataSource;
-
     @Bean
-    public EventBus eventBus() {
-        return new SimpleEventBus();
+    public SecureRandom secureRandom() throws NoSuchAlgorithmException {
+        return SecureRandom.getInstance( "SHA1PRNG" );
     }
 
     @Bean
-    public CommandBus commandBus() {
-        return new SimpleCommandBus();
+    public PasswordService passwordService() {
+        return new PasswordService();
     }
 
     @Bean
-    public CommandGateway commandGateway() {
-        return new DefaultCommandGateway( commandBus() );
+    public PasswordEventFactory passwordEventFactory() {
+        return new PasswordEventFactory();
     }
 
     @Bean
-    public EventStore eventStore() {
-        JdbcEventStore eventStore = new JdbcEventStore( dataSource );
-        return eventStore;
+    public PasswordProjector passwordProjector() {
+        return new PasswordProjector();
     }
 
     @Bean
-    public AnnotationEventListenerBeanPostProcessor annotationEventListenerBeanPostProcessor() {
-        final AnnotationEventListenerBeanPostProcessor postProcessor =
-            new AnnotationEventListenerBeanPostProcessor();
-        postProcessor.setEventBus( eventBus() );
-        return postProcessor;
-    }
-
-    @Bean
-    public AnnotationCommandHandlerBeanPostProcessor annotationCommandHandlerBeanPostProcessor() {
-        AnnotationCommandHandlerBeanPostProcessor postProcessor =
-            new AnnotationCommandHandlerBeanPostProcessor();
-        postProcessor.setCommandBus( commandBus() );
-        return postProcessor;
+    public PasswordQueryModel passwordQueryModel() {
+        return new PasswordQueryModel();
     }
 }

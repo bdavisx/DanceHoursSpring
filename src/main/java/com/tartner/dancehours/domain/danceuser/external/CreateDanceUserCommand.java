@@ -22,21 +22,13 @@ public class CreateDanceUserCommand {
     public String getEmail() { return email;  }
     public void setEmail( final String email ) { this.email = email; }
     public String getLastName() { return lastName; }
-    public void setLastName( final String lastName ) {
-        this.lastName = lastName;
-    }
+    public void setLastName( final String lastName ) { this.lastName = lastName; }
     public String getFirstName() { return firstName; }
-    public void setFirstName( final String firstName ) {
-        this.firstName = firstName;
-    }
+    public void setFirstName( final String firstName ) { this.firstName = firstName; }
     public String getPassword() { return password; }
-    public void setPassword( final String password ) {
-        this.password = password;
-    }
+    public void setPassword( final String password ) { this.password = password; }
     public Optional<Set<DanceUserRole>> getRoles() { return roles; }
-    public void setRoles( final Optional<Set<DanceUserRole>> roles ) {
-        this.roles = roles;
-    }
+    public void setRoles( final Optional<Set<DanceUserRole>> roles ) { this.roles = roles; }
 
     public CreateDanceUserCommand email( final String email ) {
         this.email = email;

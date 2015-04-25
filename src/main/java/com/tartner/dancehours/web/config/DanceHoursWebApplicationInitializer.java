@@ -18,10 +18,7 @@ public class DanceHoursWebApplicationInitializer implements
         //Load application context
         AnnotationConfigWebApplicationContext
             rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register( new Class<?>[] {
-            WebMVCConfiguration.class, PersistenceConfiguration.class,
-            SecurityConfig.class, AxonConfiguration.class,
-            PasswordConfiguration.class } );
+        rootContext.register( new Class<?>[] { WebMVCConfiguration.class } );
         rootContext.setDisplayName("Dance Hours");
 
         //Context loader listener
