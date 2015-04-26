@@ -7,7 +7,6 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExi
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
 import com.tartner.domain.password.PasswordSetEvent;
 import com.tartner.domain.password.TestPasswordHolder;
-import org.axonframework.domain.DomainEventMessage;
 import org.axonframework.domain.DomainEventStream;
 import org.axonframework.test.FixtureConfiguration;
 import org.axonframework.test.Fixtures;
@@ -33,6 +32,7 @@ public class DanceUserAggregateTest {
     private CreateDanceUserCommand createCommand;
     private DanceUserCreatedEvent createdEvent;
     private DanceUserAggregateQueryModel queryModelMock;
+    private PasswordSetEvent passwordSetEvent;
 
     @Before
     public void setUp() throws Exception {
@@ -40,6 +40,7 @@ public class DanceUserAggregateTest {
         createCommand = createValidCreateCommand();
         createdEvent = createCreatedEventForValidCommand( createCommand );
         queryModelMock = mock( DanceUserAggregateQueryModel.class );
+        passwordSetEvent = createPasswordSetEvent();
     }
 
     @Test
@@ -50,22 +51,14 @@ public class DanceUserAggregateTest {
             be doing anything else. */
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
+        user.create( createCommand, queryModelMock, passwordSetEvent );
 
         verify( queryModelMock ).emailAlreadyExists( CreateEmail );
         verify( queryModelMock ).userIdAlreadyExists( CreateUserId );
 
         final DomainEventStream events = user.getUncommittedEvents();
-        final DomainEventMessage next = events.next();
-        final Object payload = next.getPayload();
-        assertThat( createdEvent, equalTo( payload ) );
-    }
-
-    private PasswordSetEvent createPasswordSetEvent() {
-        final TestPasswordHolder passwordHolder =
-            TestPasswordHolder.CreateDefaultTest();
-        return new PasswordSetEvent( createCommand.getUserId(),
-            passwordHolder.getPasswordHash(), passwordHolder.getSalt() );
+        assertThat( createdEvent, equalTo( events.next().getPayload() ) );
+        assertThat( passwordSetEvent, equalTo( events.next().getPayload() ) );
     }
 
     @Test( expected = DanceUserIdAlreadyExistsException.class )
@@ -81,7 +74,7 @@ public class DanceUserAggregateTest {
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
+        user.create( createCommand, queryModelMock, passwordSetEvent );
     }
 
     @Test( expected = DanceUserEmailAlreadyExistsException.class )
@@ -97,7 +90,7 @@ public class DanceUserAggregateTest {
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
+        user.create( createCommand, queryModelMock, passwordSetEvent );
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
@@ -118,6 +111,13 @@ public class DanceUserAggregateTest {
         event.setFirstName( command.getFirstName() );
         event.setLastName( command.getLastName() );
         return event;
+    }
+
+    private PasswordSetEvent createPasswordSetEvent() {
+        final TestPasswordHolder passwordHolder =
+            TestPasswordHolder.CreateDefaultTest();
+        return new PasswordSetEvent( createCommand.getUserId(),
+            passwordHolder.getPasswordHash(), passwordHolder.getSalt() );
     }
 
 }
