@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.is;
 @ContextConfiguration(classes=StandardIntegrationTestConfiguration.class)
 @Transactional
 @Category( IntegrationTestCategory.class )
+@TransactionConfiguration(defaultRollback=true)
 public class PasswordProjectorTest {
     @Autowired private AggregatePasswordsDao dao;
     @Autowired PasswordProjector projector;
@@ -32,7 +34,7 @@ public class PasswordProjectorTest {
     }
 
     @Test
-    public void temp() throws Exception {
+    public void checkEvent() throws Exception {
         TestPasswordHolder holder = TestPasswordHolder.CreateDefaultTest();
 
         final UUID uuid = UUID.randomUUID();

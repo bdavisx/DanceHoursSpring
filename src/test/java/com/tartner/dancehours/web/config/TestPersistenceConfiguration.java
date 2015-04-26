@@ -1,25 +1,33 @@
 package com.tartner.dancehours.web.config;
 
 import com.tartner.databasesupport.ExceptionTranslator;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.jooq.impl.DefaultExecuteListenerProvider;
+import org.postgresql.ds.PGSimpleDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
-@Configuration
-@PropertySource(value = { "classpath:testPersistence.properties" })
+@org.springframework.context.annotation.Configuration
+@EnableTransactionManagement
+@PropertySource(value = { "/persistence.properties" })
 public class TestPersistenceConfiguration {
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @Value("${dataSource.driverClassName}")
     private String driverClassName;
@@ -35,18 +43,21 @@ public class TestPersistenceConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl( datasourceURL );
-        dataSource.setUsername( username );
-        dataSource.setPassword( password );
-        dataSource.setDriverClassName( driverClassName );
-        return dataSource;
+        try {
+            PGSimpleDataSource dataSource = new PGSimpleDataSource();
+            dataSource.setUrl( datasourceURL );
+            dataSource.setUser( username );
+            dataSource.setPassword( password );
+            return dataSource;
+        } catch( SQLException e ) {
+            throw new RuntimeException( e );
+        }
     }
 
     @Bean
     public org.jooq.Configuration jooqConfiguration() {
         DefaultConfiguration configuration = new DefaultConfiguration();
-        SQLDialect dialect = SQLDialect.valueOf( jooqSQLDialect );
+        SQLDialect dialect = SQLDialect.POSTGRES;
         configuration.setSQLDialect( dialect );
         configuration.setConnectionProvider( connectionProvider() );
         configuration.setExecuteListenerProvider(
@@ -57,7 +68,7 @@ public class TestPersistenceConfiguration {
     }
 
     @Bean
-    public DataSourceTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager() {
         final DataSourceTransactionManager transactionManager =
             new DataSourceTransactionManager();
         transactionManager.setDataSource( dataSource() );

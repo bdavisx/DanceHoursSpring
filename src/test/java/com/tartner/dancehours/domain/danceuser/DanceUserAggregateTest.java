@@ -5,6 +5,8 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryM
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
+import com.tartner.domain.password.PasswordSetEvent;
+import com.tartner.domain.password.TestPasswordHolder;
 import org.axonframework.domain.DomainEventMessage;
 import org.axonframework.domain.DomainEventStream;
 import org.axonframework.test.FixtureConfiguration;
@@ -48,7 +50,7 @@ public class DanceUserAggregateTest {
             be doing anything else. */
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock );
+        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
 
         verify( queryModelMock ).emailAlreadyExists( CreateEmail );
         verify( queryModelMock ).userIdAlreadyExists( CreateUserId );
@@ -57,6 +59,13 @@ public class DanceUserAggregateTest {
         final DomainEventMessage next = events.next();
         final Object payload = next.getPayload();
         assertThat( createdEvent, equalTo( payload ) );
+    }
+
+    private PasswordSetEvent createPasswordSetEvent() {
+        final TestPasswordHolder passwordHolder =
+            TestPasswordHolder.CreateDefaultTest();
+        return new PasswordSetEvent( createCommand.getUserId(),
+            passwordHolder.getPasswordHash(), passwordHolder.getSalt() );
     }
 
     @Test( expected = DanceUserIdAlreadyExistsException.class )
@@ -72,7 +81,7 @@ public class DanceUserAggregateTest {
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock );
+        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
     }
 
     @Test( expected = DanceUserEmailAlreadyExistsException.class )
@@ -88,7 +97,7 @@ public class DanceUserAggregateTest {
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock );
+        user.create( createCommand, queryModelMock, createPasswordSetEvent() );
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {

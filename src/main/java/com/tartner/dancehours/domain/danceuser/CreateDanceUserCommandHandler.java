@@ -2,14 +2,16 @@ package com.tartner.dancehours.domain.danceuser;
 
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
+import com.tartner.domain.password.PasswordEventFactory;
+import com.tartner.domain.password.PasswordSetEvent;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateDanceUserCommandHandler {
-    @Autowired
-    private DanceUserAggregateQueryModel queryModel;
+    @Autowired private DanceUserAggregateQueryModel queryModel;
+    @Autowired private PasswordEventFactory passwordEventFactory;
 
     /* Note: Should the validation logic be in the CommandHandler or the
             Aggregate? I'm for having all of it in the Aggregate, because that
@@ -35,7 +37,16 @@ public class CreateDanceUserCommandHandler {
     @CommandHandler
     public void createDanceUser( final CreateDanceUserCommand command ) {
         DanceUserAggregate aggregate = new DanceUserAggregate();
-        aggregate.create( command, queryModel );
+        final PasswordSetEvent passwordSetEvent =
+            createPasswordSetEvent( command );
+        aggregate.create( command, queryModel, passwordSetEvent );
+    }
 
+    private PasswordSetEvent createPasswordSetEvent(
+        final CreateDanceUserCommand command ) {
+        // Note: we create the password event here to keep the dependenccy
+        // out of the aggregate
+        return passwordEventFactory.createPasswordSetEvent( command.getUserId(),
+            command.getPassword() );
     }
 }

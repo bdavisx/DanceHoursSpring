@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-
 @org.springframework.context.annotation.Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "/persistence.properties" })

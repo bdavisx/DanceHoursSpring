@@ -7,6 +7,7 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
 import com.tartner.domain.password.EncodedPassword;
+import com.tartner.domain.password.PasswordSetEvent;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
@@ -23,10 +24,15 @@ public class DanceUserAggregate extends AbstractAnnotatedAggregateRoot<UUID> {
     private EncodedPassword password;
     private List<DanceUserRole> userRoles;
 
-    public void create( final CreateDanceUserCommand command,
-        final DanceUserAggregateQueryModel queryModel ) {
+    void create( final CreateDanceUserCommand command,
+        final DanceUserAggregateQueryModel queryModel,
+        final PasswordSetEvent passwordSetEvent ) {
+
         initialize( command.getUserId(), command.getEmail(),
             command.getLastName(), command.getFirstName(), queryModel );
+        // TODO: any kind of validation here?
+        apply( passwordSetEvent );
+
         // todo: setup saga for email validation (optional based on settings)
 
 
