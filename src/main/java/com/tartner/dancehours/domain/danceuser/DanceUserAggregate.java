@@ -62,6 +62,14 @@ public class DanceUserAggregate extends AbstractAnnotatedAggregateRoot<UUID> {
         firstName = event.getFirstName();
     }
 
+    @EventSourcingHandler
+    private void passwordSetEvent( PasswordSetEvent event ) {
+        // Note: not sure that we actually need to save this if we're getting
+        // the login validation data from a projection. It'll get there
+        // thru the projection class.
+        password = new EncodedPassword( event );
+    }
+
     private void validateInitialize( final UUID userId, final String email,
         final String lastName, final String firstName,
         final DanceUserAggregateQueryModel queryModel ) {

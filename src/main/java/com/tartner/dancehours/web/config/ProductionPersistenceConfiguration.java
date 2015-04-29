@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 
 @org.springframework.context.annotation.Configuration
 @EnableTransactionManagement
-@PropertySource(value = { "/persistence.properties" })
+@PropertySource(value = { "classpath:persistence.properties" })
 public class ProductionPersistenceConfiguration {
 
     @Autowired private ResourceLoader resourceLoader;

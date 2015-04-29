@@ -1,11 +1,11 @@
 package com.tartner.dancehours.web.config;
 
 import com.tartner.Application;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
@@ -32,10 +32,8 @@ class WebMVCConfiguration extends WebMvcConfigurerAdapter {
     private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
     @Bean
-    public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-//        ppc.setLocation( new ClassPathResource( "/persistence.properties" ) );
-        return ppc;
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean(name = "messageSource")
