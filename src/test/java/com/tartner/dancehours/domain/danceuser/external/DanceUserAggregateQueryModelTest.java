@@ -16,31 +16,25 @@ import static org.mockito.Mockito.when;
 public class DanceUserAggregateQueryModelTest {
 
     public static final String TestEmail = "bill@tartner.com";
+    private DanceUserDao dao;
+    private DanceUserAggregateQueryModel queryModel;
     @Before
     public void setUp() throws Exception {
 
+        dao = mock(DanceUserDao.class);
+        queryModel = new DanceUserAggregateQueryModel( dao );
     }
 
     @Test
     public void testEmailAlreadyExistsWhenExists() throws Exception {
-        final DanceUserDao dao = mock(DanceUserDao.class);
-
-        DanceUserAggregateQueryModel queryModel =
-            new DanceUserAggregateQueryModel( dao );
-
         when( dao.fetchByEmail( TestEmail ) ).thenReturn(
             Arrays.asList( new DanceUser[]{ new DanceUser() } ) );
 
-        assertThat(queryModel.emailAlreadyExists( TestEmail ), is( true ) );
+        assertThat( queryModel.emailAlreadyExists( TestEmail ), is( true ) );
     }
 
     @Test
     public void testEmailAlreadyExistsWhenDoesNotExist() throws Exception {
-        final DanceUserDao dao = mock(DanceUserDao.class);
-
-        DanceUserAggregateQueryModel queryModel =
-            new DanceUserAggregateQueryModel( dao );
-
         when( dao.fetchByEmail( TestEmail ) ).thenReturn(
             new ArrayList<DanceUser>() );
 
