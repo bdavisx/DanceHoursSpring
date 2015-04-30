@@ -26,8 +26,8 @@ public class AggregatePasswords implements java.io.Serializable {
 
 	public AggregatePasswords(
 		java.util.UUID aggregateId,
-		byte[] passwordHash,
-		byte[] salt
+		byte[]         passwordHash,
+		byte[]         salt
 	) {
 		this.aggregateId = aggregateId;
 		this.passwordHash = passwordHash;

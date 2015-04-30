@@ -8,6 +8,7 @@ create table dance_user (
     user_type varchar(50)
 );
 create index dance_user_index_name on dance_user (last_name, first_name);
+create unique index dance_user_index_email on dance_user (email);
 
 drop table dance_user_roles;
 create table dance_user_roles (

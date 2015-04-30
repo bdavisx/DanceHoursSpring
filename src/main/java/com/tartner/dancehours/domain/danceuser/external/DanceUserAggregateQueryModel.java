@@ -2,13 +2,16 @@ package com.tartner.dancehours.domain.danceuser.external;
 
 import com.tartner.dancehours.querymodel.database.tables.daos.DanceUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class DanceUserAggregateQueryModel {
-    private final DanceUserDao dao;
+    @Autowired private DanceUserDao dao;
 
-    @Autowired
+    public DanceUserAggregateQueryModel() {}
+
     public DanceUserAggregateQueryModel( final DanceUserDao dao ) {
         this.dao = dao;
     }

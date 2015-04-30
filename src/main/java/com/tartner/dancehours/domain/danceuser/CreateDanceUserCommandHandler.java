@@ -13,6 +13,15 @@ public class CreateDanceUserCommandHandler {
     @Autowired private DanceUserAggregateQueryModel queryModel;
     @Autowired private PasswordEventFactory passwordEventFactory;
 
+    public CreateDanceUserCommandHandler() {}
+
+    public CreateDanceUserCommandHandler(
+        final DanceUserAggregateQueryModel queryModel,
+        final PasswordEventFactory passwordEventFactory ) {
+        this.queryModel = queryModel;
+        this.passwordEventFactory = passwordEventFactory;
+    }
+
     /* Note: Should the validation logic be in the CommandHandler or the
             Aggregate? I'm for having all of it in the Aggregate, because that
             keeps the validation all in one place. Sometimes you might use
