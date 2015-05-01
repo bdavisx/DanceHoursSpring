@@ -21,6 +21,10 @@ public class CreateAccountController {
     @RequestMapping(value = "/createAccount", method = RequestMethod.GET)
     public String get(Model model) {
         CreateAccountForm initialForm = new CreateAccountForm();
+        initialForm.setFirstName( "Bill" );
+        initialForm.setLastName( "Davis" );
+        initialForm.setEmail( "bill@tartner.com" );
+        initialForm.setPassword( "Abc@123" );
         model.addAttribute( "createAccountForm", initialForm );
         return "login/createAccount";
     }

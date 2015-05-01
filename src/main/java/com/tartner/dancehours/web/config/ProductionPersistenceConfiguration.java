@@ -63,7 +63,7 @@ public class ProductionPersistenceConfiguration {
     }
 
     @Bean
-    public DataSourceTransactionManager transactionManager() {
+    public DataSourceTransactionManager platformTransactionManager() {
         final DataSourceTransactionManager transactionManager =
             new DataSourceTransactionManager();
         transactionManager.setDataSource( dataSource() );
