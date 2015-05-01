@@ -3,12 +3,14 @@ package com.tartner.domain.password;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.UUID;
 
+@Component
 public class PasswordEventFactory {
     /* Note: Note why the right margin is so small, and where it came from
         (Python style document) - also fits well on most website code windows. */

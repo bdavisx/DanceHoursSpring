@@ -1,11 +1,14 @@
 package com.tartner.domain.password;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
+@Component
 public class PasswordService {
     // The higher the number of iterations the more
     // expensive computing the hash is for us and

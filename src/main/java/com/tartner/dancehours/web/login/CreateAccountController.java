@@ -1,5 +1,7 @@
 package com.tartner.dancehours.web.login;
 
+import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 public class CreateAccountController {
+    @Autowired private CommandGateway commandGateway;
     @Autowired private CreateAccountFormValidator validator;
 
     @RequestMapping(value = "/createAccount", method = RequestMethod.GET)
@@ -36,6 +40,14 @@ public class CreateAccountController {
         if (bindingResult.hasErrors()) {
             return "login/createAccount";
         }
+
+        // TODO: find the sequential UUID generator and use here
+        commandGateway.send( new CreateDanceUserCommand( UUID.randomUUID() )
+            .email( form.getEmail() )
+            .firstName( form.getFirstName() )
+            .lastName( form.getLastName() )
+            .password( form.getPassword() ) );
+
         return "/home/homeSignedIn";
     }
 

@@ -1,0 +1,5 @@
+<com.tartner.domain.password.PasswordSetEvent>
+    <aggregateId>89abe4a1-f6d0-4151-b53e-003e27f9c245</aggregateId>
+    <passwordHash>u86d7CNJXfQ6XHrIcHio7bXUnjQSj9s0sc6TAY1XgVE=</passwordHash>
+    <salt>vX5UXKmTlAKiB3OK4XQXaWfXewPGrNklxTDMpULVmGk=</salt>
+</com.tartner.domain.password.PasswordSetEvent>

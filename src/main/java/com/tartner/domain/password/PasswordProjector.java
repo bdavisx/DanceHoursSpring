@@ -4,9 +4,11 @@ import com.tartner.dancehours.querymodel.database.tables.records.AggregatePasswo
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.tartner.dancehours.querymodel.database.tables.AggregatePasswords.AGGREGATE_PASSWORDS;
 
+@Component
 public class PasswordProjector {
     @Autowired private DSLContext dslContext;
 

@@ -3,11 +3,13 @@ package com.tartner.domain.password;
 import com.tartner.dancehours.querymodel.database.tables.daos.AggregatePasswordsDao;
 import com.tartner.dancehours.querymodel.database.tables.pojos.AggregatePasswords;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.UUID;
 
+@Component
 public class PasswordQueryModel {
     @Autowired private PasswordService passwordService;
     @Autowired private AggregatePasswordsDao dao;

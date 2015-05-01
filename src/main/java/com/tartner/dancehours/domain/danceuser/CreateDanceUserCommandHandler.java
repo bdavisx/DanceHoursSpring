@@ -5,6 +5,8 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryM
 import com.tartner.domain.password.PasswordEventFactory;
 import com.tartner.domain.password.PasswordSetEvent;
 import org.axonframework.commandhandling.annotation.CommandHandler;
+import org.axonframework.repository.Repository;
+import org.axonframework.unitofwork.UnitOfWork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class CreateDanceUserCommandHandler {
     @Autowired private DanceUserAggregateQueryModel queryModel;
     @Autowired private PasswordEventFactory passwordEventFactory;
+    @Autowired private Repository<DanceUserAggregate> aggregateRepository;
 
     public CreateDanceUserCommandHandler() {}
 
@@ -44,11 +47,13 @@ public class CreateDanceUserCommandHandler {
         For consistencies sake, I'm going w/ having it all in the aggregate.
         */
     @CommandHandler
-    public void createDanceUser( final CreateDanceUserCommand command ) {
+    public void createDanceUser( final CreateDanceUserCommand command,
+        UnitOfWork unitOfWork ) {
         DanceUserAggregate aggregate = new DanceUserAggregate();
         final PasswordSetEvent passwordSetEvent =
             createPasswordSetEvent( command );
         aggregate.create( command, queryModel, passwordSetEvent );
+        aggregateRepository.add( aggregate );
     }
 
     private PasswordSetEvent createPasswordSetEvent(
