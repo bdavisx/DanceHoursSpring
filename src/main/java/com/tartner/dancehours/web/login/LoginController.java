@@ -24,7 +24,9 @@ public class LoginController {
     public String post( @RequestParam("username") String username,
         @RequestParam("password") String password ) {
 
-        final User user = new User( username, password, Arrays.asList(
+        // TODO: implement actual login
+
+        final User user = new User( username, "", Arrays.asList(
             new GrantedAuthority[] {
                 new GrantedAuthority() {
                     public String getAuthority() { return "ROLE_USER"; }

@@ -14,6 +14,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {
-		return principal != null ? "home/homeSignedIn" : "/login";
+		return principal != null ? "home/homeSignedIn" : "redirect:/login";
 	}
 }
