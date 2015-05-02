@@ -1,3 +1,18 @@
+-- drop table domainevententry;
+-- create table domainevententry
+-- (
+--     aggregateidentifier uuid not null,
+--     sequencenumber bigint not null,
+--     type varchar(255) not null,
+--     eventidentifier varchar(255) not null,
+--     metadata bytea,
+--     payload bytea not null,
+--     payloadrevision varchar(255),
+--     payloadtype varchar(255) not null,
+--     timestamp varchar(255) not null,
+--     primary key (aggregateidentifier, sequencenumber, type)
+-- );
+
 drop table dance_user;
 create table dance_user (
     user_id uuid primary key not null,

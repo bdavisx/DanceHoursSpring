@@ -14,7 +14,7 @@
         <java-version>1.8</java-version>
         <axon.version>2.4</axon.version>
         <springframework.version>4.1.4.RELEASE</springframework.version>
-        <springframework.security.version>3.2.0.RELEASE</springframework.security.version>
+        <springframework.security.version>4.0.1.RELEASE</springframework.security.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
         <thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
         <mysql.version>5.1.31</mysql.version>
@@ -97,6 +97,11 @@
             <version>${springframework.version}</version>
         </dependency>
         <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${springframework.security.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>

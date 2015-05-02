@@ -15,8 +15,7 @@ import static com.tartner.dancehours.querymodel.database.tables.DanceUser.DANCE_
 
 @Component
 public class DanceUserProjector {
-    @Autowired
-    private DSLContext dslContext;
+    @Autowired private DSLContext dslContext;
 
     @EventHandler
     public void handle( DanceUserCreatedEvent event ) {

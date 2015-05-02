@@ -1,19 +1,23 @@
 package com.tartner.dancehours.web.home;
 
-import org.jooq.DSLContext;
+import com.tartner.dancehours.querymodel.danceuser.DanceUserListQueryModel;
+import com.tartner.dancehours.querymodel.danceuser.DanceUserListTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class HomeController {
-	@Autowired DSLContext dsl;
+	@Autowired private DanceUserListQueryModel queryModel;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {
-		return principal != null ? "home/homeSignedIn" : "redirect:/login";
+        final List<DanceUserListTO> allUsers = queryModel.getAllUsers();
+
+        return principal != null ? "home/homeSignedIn" : "redirect:/login";
 	}
 }
