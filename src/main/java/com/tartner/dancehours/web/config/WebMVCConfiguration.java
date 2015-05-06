@@ -20,6 +20,11 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+// Note: need to move the specific configuration more "local" to the component,
+// while leaving environment configuration stuff to the app
+
+// TODO: organize pom references
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = Application.class)
