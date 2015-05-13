@@ -1,38 +1,33 @@
 package com.tartner.domain.password;
 
-import com.tartner.dancehours.querymodel.database.tables.records.AggregatePasswordsRecord;
+import com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity;
 import org.axonframework.eventhandling.annotation.EventHandler;
-import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.tartner.dancehours.querymodel.database.tables.AggregatePasswords.AGGREGATE_PASSWORDS;
-
 @Component
 public class PasswordProjector {
-    @Autowired private DSLContext dslContext;
+    @Autowired private AggregatePasswordRepository repository;
 
     public PasswordProjector() {}
 
-    public PasswordProjector( final DSLContext dslContext ) {
-        this.dslContext = dslContext;
+    public PasswordProjector( final AggregatePasswordRepository repository ) {
+        this.repository = repository;
     }
 
     @EventHandler
     public void handle( PasswordSetEvent event ) {
-        AggregatePasswordsRecord passwordRecord = dslContext
-            .selectFrom( AGGREGATE_PASSWORDS )
-            .where( AGGREGATE_PASSWORDS.AGGREGATE_ID
-                .equal( event.getAggregateId() ) ).fetchOne();
+        AggregatePasswordsEntity passwordRecord =
+            repository.findOne( event.getAggregateId() );
 
         if (passwordRecord == null ) {
-            passwordRecord = dslContext.newRecord( AGGREGATE_PASSWORDS )
-                .setAggregateId( event.getAggregateId() );
+            passwordRecord = new AggregatePasswordsEntity();
+            passwordRecord.setAggregateId( event.getAggregateId() );
         }
 
-        passwordRecord
-            .setPasswordHash( event.getPasswordHash() )
-            .setSalt( event.getSalt() );
-        passwordRecord.store();
+        passwordRecord.setPasswordHash( event.getPasswordHash() );
+        passwordRecord.setSalt( event.getSalt() );
+
+        repository.save( passwordRecord );
     }
 }

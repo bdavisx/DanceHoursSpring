@@ -1,7 +1,7 @@
 package com.tartner.domain.password;
 
 import com.tartner.dancehours.web.config.AxonConfiguration;
-import com.tartner.dancehours.web.config.JooqDAOConfiguration;
+import com.tartner.dancehours.web.config.JPAConfiguration;
 import com.tartner.dancehours.web.config.PasswordConfiguration;
 import com.tartner.dancehours.web.config.TestPersistenceConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Import( {
     TestPersistenceConfiguration.class,
     AxonConfiguration.class, PasswordConfiguration.class,
-    JooqDAOConfiguration.class
+    JPAConfiguration.class
     } )
 public class StandardIntegrationTestConfiguration {
     @Bean

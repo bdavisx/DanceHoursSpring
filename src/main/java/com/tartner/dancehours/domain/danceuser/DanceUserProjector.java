@@ -5,27 +5,25 @@ package com.tartner.dancehours.domain.danceuser;
 // to the database...
 
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
-import com.tartner.dancehours.querymodel.database.tables.records.DanceUserRecord;
+import com.tartner.dancehours.querymodel.jpa.DanceUserEntity;
 import org.axonframework.eventhandling.annotation.EventHandler;
-import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.tartner.dancehours.querymodel.database.tables.DanceUser.DANCE_USER;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Component
 public class DanceUserProjector {
-    @Autowired private DSLContext dslContext;
+    @PersistenceContext private EntityManager em;
 
     @EventHandler
     public void handle( DanceUserCreatedEvent event ) {
-        DanceUserRecord userRecord = dslContext
-            .newRecord( DANCE_USER )
-                .setUserId( event.getUserId() )
-                .setEmail( event.getEmail() )
-                .setFirstName( event.getFirstName() )
-                .setLastName( event.getLastName() )
-                .setIsActive( true );
-        userRecord.store();
+        DanceUserEntity userRecord = new DanceUserEntity();
+        userRecord.setUserId( event.getUserId() );
+        userRecord.setEmail( event.getEmail() );
+        userRecord.setFirstName( event.getFirstName() );
+        userRecord.setLastName( event.getLastName() );
+        userRecord.setIsActive( true );
+        em.persist( userRecord );
     }
 }

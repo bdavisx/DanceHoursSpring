@@ -1,7 +1,6 @@
 package com.tartner.domain.password;
 
-import com.tartner.dancehours.querymodel.database.tables.daos.AggregatePasswordsDao;
-import com.tartner.dancehours.querymodel.database.tables.pojos.AggregatePasswords;
+import com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,20 +11,19 @@ import java.util.UUID;
 @Component
 public class PasswordQueryModel {
     @Autowired private PasswordService passwordService;
-    @Autowired private AggregatePasswordsDao dao;
+    @Autowired private AggregatePasswordRepository repository;
 
-    public PasswordQueryModel() {
-    }
-
-    PasswordQueryModel( final PasswordService passwordService,
-        final AggregatePasswordsDao dao ) {
+    public PasswordQueryModel() {}
+    public PasswordQueryModel(
+        final PasswordService passwordService,
+        final AggregatePasswordRepository repository ) {
         this.passwordService = passwordService;
-        this.dao = dao;
+        this.repository = repository;
     }
 
     public boolean passwordsMatch( UUID aggregateId, String password ) {
-        final AggregatePasswords aggregatePassword =
-            dao.fetchOneByAggregateId( aggregateId );
+        final AggregatePasswordsEntity aggregatePassword =
+            repository.findOne( aggregateId );
 
         return passwordsMatch( password, aggregatePassword.getPasswordHash(),
             aggregatePassword.getSalt() );
@@ -45,5 +43,4 @@ public class PasswordQueryModel {
         final byte[] passwordHash ) {
         return Arrays.equals( expectedPasswordHash, passwordHash );
     }
-
 }

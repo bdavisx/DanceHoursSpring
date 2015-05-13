@@ -1,7 +1,6 @@
 package com.tartner.domain.password;
 
-import com.tartner.dancehours.querymodel.database.tables.daos.AggregatePasswordsDao;
-import com.tartner.dancehours.querymodel.database.tables.pojos.AggregatePasswords;
+import com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,13 +20,13 @@ public class PasswordQueryModelTest {
 
     private PasswordService passwordService;
     private PasswordQueryModel queryModel;
-    private AggregatePasswordsDao dao;
+    private AggregatePasswordRepository repository;
 
     @Before
     public void setUp() throws NoSuchAlgorithmException {
         passwordService = new PasswordService();
-        dao = mock( AggregatePasswordsDao.class );
-        queryModel = new PasswordQueryModel( passwordService, dao );
+        repository = mock( AggregatePasswordRepository.class );
+        queryModel = new PasswordQueryModel( passwordService, repository );
     }
 
     @Test
@@ -36,9 +35,12 @@ public class PasswordQueryModelTest {
 
         TestPasswordHolder holder = TestPasswordHolder.CreateDefaultTest();
 
-        AggregatePasswords password = new AggregatePasswords( id,
-            holder.getPasswordHash(), holder.getSalt() );
-        when( dao.fetchOneByAggregateId( id ) ).thenReturn( password );
+        AggregatePasswordsEntity password = new AggregatePasswordsEntity();
+        password.setAggregateId( id );
+        password.setPasswordHash( holder.getPasswordHash() );
+        password.setSalt( holder.getSalt() );
+
+        when( repository.findOne( id ) ).thenReturn( password );
 
         final boolean passwordsMatch =
             queryModel.passwordsMatch( id, TestPassword );

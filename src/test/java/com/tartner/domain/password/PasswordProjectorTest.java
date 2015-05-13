@@ -1,8 +1,7 @@
 package com.tartner.domain.password;
 
 import com.tartner.IntegrationTestCategory;
-import com.tartner.dancehours.querymodel.database.tables.daos.AggregatePasswordsDao;
-import com.tartner.dancehours.querymodel.database.tables.pojos.AggregatePasswords;
+import com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -14,11 +13,11 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=StandardIntegrationTestConfiguration.class)
@@ -26,7 +25,7 @@ import static org.hamcrest.Matchers.is;
 @Category( IntegrationTestCategory.class )
 @TransactionConfiguration(defaultRollback=true)
 public class PasswordProjectorTest {
-    @Autowired private AggregatePasswordsDao dao;
+    @Autowired private AggregatePasswordRepository repository;
     @Autowired PasswordProjector projector;
 
     @Before
@@ -43,14 +42,12 @@ public class PasswordProjectorTest {
             holder.getPasswordHash(), holder.getSalt() );
         projector.handle( event );
 
-        final Optional<AggregatePasswords> first =
-            dao.fetchByAggregateId( uuid ).stream().findFirst();
+        final AggregatePasswordsEntity passwordsEntity = repository.findOne( uuid );
 
-        assertThat( first.isPresent(), is( true ) );
+        assertThat( passwordsEntity, notNullValue() );
 
-        final AggregatePasswords password = first.get();
-        assertThat( password.getPasswordHash(), is( holder.passwordHash ) );
-        assertThat( password.getSalt(), is( holder.salt ) );
+        assertThat( passwordsEntity.getPasswordHash(), is( holder.passwordHash ) );
+        assertThat( passwordsEntity.getSalt(), is( holder.salt ) );
     }
 
 }
