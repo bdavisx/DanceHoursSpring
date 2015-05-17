@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -31,9 +29,6 @@ public class TestPersistenceConfiguration {
     @Value("${dataSource.password}")
     private String password;
 
-    @Value("${jooq.sql.dialect}")
-    private String jooqSQLDialect;
-
     @Bean
     public DataSource dataSource() {
         try {
@@ -45,14 +40,6 @@ public class TestPersistenceConfiguration {
         } catch( SQLException e ) {
             throw new RuntimeException( e );
         }
-    }
-
-    @Bean
-    public PlatformTransactionManager platformTransactionManager() {
-        final DataSourceTransactionManager transactionManager =
-            new DataSourceTransactionManager();
-        transactionManager.setDataSource( dataSource() );
-        return transactionManager;
     }
 
     @Bean

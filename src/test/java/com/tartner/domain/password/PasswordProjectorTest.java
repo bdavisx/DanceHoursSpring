@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -21,12 +22,13 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=StandardIntegrationTestConfiguration.class)
+@ComponentScan(basePackages = { "com.tartner.domain" })
 @Transactional
-@Category( IntegrationTestCategory.class )
 @TransactionConfiguration(defaultRollback=true)
+@Category( IntegrationTestCategory.class )
 public class PasswordProjectorTest {
     @Autowired private AggregatePasswordRepository repository;
-    @Autowired PasswordProjector projector;
+    private PasswordProjector projector;
 
     @Before
     public void setUp() throws NoSuchAlgorithmException {
@@ -34,6 +36,8 @@ public class PasswordProjectorTest {
 
     @Test
     public void checkEvent() throws Exception {
+        projector = new PasswordProjector( repository );
+
         TestPasswordHolder holder = TestPasswordHolder.CreateDefaultTest();
 
         final UUID uuid = UUID.randomUUID();
