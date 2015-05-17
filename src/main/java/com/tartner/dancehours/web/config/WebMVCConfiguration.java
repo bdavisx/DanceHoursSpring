@@ -1,6 +1,7 @@
 package com.tartner.dancehours.web.config;
 
 import com.tartner.Application;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -65,8 +66,9 @@ class WebMVCConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-//        templateEngine.addDialect(new SpringStandardDialect());
+        templateEngine.setTemplateResolver( templateResolver() );
+        templateEngine.addDialect( new LayoutDialect() );
+//        templateEngine.addDialect( new SpringStandardDialect() );
         return templateEngine;
     }
 
