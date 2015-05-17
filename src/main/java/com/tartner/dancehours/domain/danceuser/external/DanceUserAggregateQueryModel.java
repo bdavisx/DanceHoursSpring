@@ -27,6 +27,6 @@ public class DanceUserAggregateQueryModel {
 
     /** Checks to see if the email is already in the system. */
     public boolean emailAlreadyExists( String email ) {
-        return repository.existsByEmail( email );
+        return repository.existsByEmail( email ) > 0;
     }
 }

@@ -10,7 +10,7 @@ public interface DanceUserRepository extends
     CrudRepository<DanceUserEntity, UUID> {
 
     @Query("SELECT count(danceUser) from DanceUserEntity danceUser where danceUser.email = ?1")
-    boolean existsByEmail( String email );
+    long existsByEmail( String email );
 
     @Query("SELECT danceUser from DanceUserEntity danceUser where danceUser.email = ?1")
     DanceUserEntity findByEmail( String email );

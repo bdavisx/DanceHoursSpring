@@ -23,14 +23,14 @@ public class DanceUserAggregateQueryModelTest {
 
     @Test
     public void testEmailAlreadyExistsWhenExists() throws Exception {
-        when( dao.existsByEmail( TestEmail ) ).thenReturn( true );
+        when( dao.existsByEmail( TestEmail ) ).thenReturn( 1L );
 
         assertThat( queryModel.emailAlreadyExists( TestEmail ), is( true ) );
     }
 
     @Test
     public void testEmailAlreadyExistsWhenDoesNotExist() throws Exception {
-        when( dao.existsByEmail( TestEmail ) ).thenReturn( false );
+        when( dao.existsByEmail( TestEmail ) ).thenReturn( 0L );
 
         assertThat(queryModel.emailAlreadyExists( TestEmail ), is( false ) );
     }

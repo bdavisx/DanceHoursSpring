@@ -8,11 +8,13 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
 import com.tartner.dancehours.querymodel.jpa.DanceUserEntity;
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Component
+@Transactional
 public class DanceUserProjector {
     @PersistenceContext private EntityManager em;
 
