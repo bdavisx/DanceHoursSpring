@@ -1,6 +1,6 @@
 package com.tartner.dancehours.web.donations;
 
-import com.tartner.utilities.GuidGenerator;
+import com.tartner.utilities.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +8,11 @@ import java.util.UUID;
 
 @Service
 public class DonationEntryQueryRepository {
-    @Autowired private GuidGenerator guidGenerator;
+    @Autowired private UUIDGenerator uuidGenerator;
 
     public DonationEntryForm CreateNewEntryForm( String userId ) {
         DonationEntryForm form = new DonationEntryForm();
-        form.setEntryId( guidGenerator.newId() );
+        form.setEntryId( uuidGenerator.newId() );
         form.setMemberDonationWasProvidedFor(
             defaultMemberIdForDonations( userId ) );
         return form;

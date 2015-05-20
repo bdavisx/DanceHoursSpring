@@ -1,7 +1,7 @@
 package com.tartner.dancehours.web.config;
 
-import com.tartner.utilities.GuidGenerator;
 import com.tartner.utilities.SequentialGuidGenerator;
+import com.tartner.utilities.UUIDGenerator;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
@@ -31,7 +31,7 @@ public class AxonConfiguration {
     @Autowired private PlatformTransactionManager platformTransactionManager;
 
     @Bean
-    public GuidGenerator guidGenerator() {
+    public UUIDGenerator guidGenerator() {
         return new SequentialGuidGenerator();
     }
 

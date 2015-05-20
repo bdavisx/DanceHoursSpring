@@ -5,7 +5,7 @@ import com.fasterxml.uuid.NoArgGenerator;
 
 import java.util.UUID;
 
-public class SequentialGuidGenerator implements GuidGenerator {
+public class SequentialGuidGenerator implements UUIDGenerator {
     private NoArgGenerator generator;
 
     public SequentialGuidGenerator( final NoArgGenerator generator ) {
