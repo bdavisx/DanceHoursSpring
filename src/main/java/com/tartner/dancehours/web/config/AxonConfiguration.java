@@ -1,5 +1,7 @@
 package com.tartner.dancehours.web.config;
 
+import com.tartner.utilities.GuidGenerator;
+import com.tartner.utilities.SequentialGuidGenerator;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
@@ -27,6 +29,11 @@ import javax.sql.DataSource;
 public class AxonConfiguration {
     @Autowired private DataSource dataSource;
     @Autowired private PlatformTransactionManager platformTransactionManager;
+
+    @Bean
+    public GuidGenerator guidGenerator() {
+        return new SequentialGuidGenerator();
+    }
 
     @Bean
     public EventBus eventBus() {

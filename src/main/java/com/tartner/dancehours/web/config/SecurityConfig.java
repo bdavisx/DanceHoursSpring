@@ -11,6 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // TODO: add a two-factor authentication option; if user has a known
+    // email address (or phone) and they login from new location, email
+    // or text link/code
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
