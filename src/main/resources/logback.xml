@@ -21,9 +21,9 @@
 
 	<jmxConfigurator />
 
+	<logger name="logger.play" level="INFO" />
+	<logger name="logger.application" level="DEBUG" />
 	<logger name="com.tartner" level="ALL" />
-	<logger name="org.hibernate.type" level="ALL" />
-	<logger name="org.hibernate" level="DEBUG" />
 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
