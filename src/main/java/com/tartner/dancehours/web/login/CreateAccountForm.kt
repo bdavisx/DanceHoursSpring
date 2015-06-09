@@ -1,30 +1,25 @@
 package com.tartner.dancehours.web.login
 
+import com.tartner.dancehours.web.StandardUIMessageConstants
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotBlank
-import java.io.Serializable
 
 public data class CreateAccountForm(
-    NotBlank(message = "{notBlank.message}")
+    NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
     public var firstName: String = "",
 
-    NotBlank(message = "{notBlank.message}")
+    NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
     public var lastName: kotlin.String = "",
 
-    NotBlank(message = "{notBlank.message}")
-    Email(message = "{email.message}")
+    NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
+    Email(message = StandardUIMessageConstants.EMAIL_MESSAGE)
     public var email: kotlin.String = "",
 
-    NotBlank(message = "{notBlank.message}")
+    NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
     public var password: kotlin.String = ""
 
-    ) : Serializable {
+    ) {
 
     public fun createAccount() {
-    }
-
-    companion object Constants {
-        val NOT_BLANK_MESSAGE : String = "{notBlank.message}"
-        val EMAIL_MESSAGE : String = "{email.message}"
     }
 }
