@@ -20,10 +20,11 @@ constructor(private val commandGateway: CommandGateway, private val validator: C
     RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.GET))
     public fun get(model: Model): String {
         val initialForm = CreateAccountForm()
-        initialForm.setFirstName("Bill")
-        initialForm.setLastName("Davis")
-        initialForm.setEmail("bill@tartner.com")
-        initialForm.setPassword("Abc@123")
+        initialForm.firstName = "Bill"
+        initialForm.lastName = "Dav" +
+            "is"
+        initialForm.email = "bill@tartner.com"
+        initialForm.password = "Abc@123"
         model.addAttribute("createAccountForm", initialForm)
         return "login/createAccount"
     }
@@ -39,14 +40,12 @@ constructor(private val commandGateway: CommandGateway, private val validator: C
 
         validator.validate(form, bindingResult)
 
-        if (bindingResult.hasErrors()) {
-            return "login/createAccount"
-        }
+        if (bindingResult.hasErrors()) { return "login/createAccount" }
 
         // TODO: find the sequential UUID generator and use here
         commandGateway.send(
-            CreateDanceUserCommand(UUID.randomUUID()).email(form.getEmail()).firstName(
-                form.getFirstName()).lastName(form.getLastName()).password(form.getPassword()))
+            CreateDanceUserCommand(UUID.randomUUID()).email(form.email).firstName(
+                form.firstName).lastName(form.lastName).password(form.password))
 
         return "/home/homeSignedIn"
     }
