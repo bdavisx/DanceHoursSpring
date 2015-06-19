@@ -30,20 +30,19 @@ public open class ProductionPersistenceConfiguration {
         return TransactionAwareDataSourceProxy(dataSource())
     }
 
-    private fun driverClassName() : String? {
+    private fun driverClassName(): String? {
         return environment?.getProperty("dataSource.driverClassName")
     }
 
-    private fun datasourceURL() : String?
-    {
+    private fun datasourceURL(): String? {
         return environment?.getProperty("dataSource.datasourceURL")
     }
 
-    private fun username() : String? {
+    private fun username(): String? {
         return environment?.getProperty("dataSource.username")
     }
 
-    private fun password() : String? {
+    private fun password(): String? {
         return environment?.getProperty("dataSource.password")
     }
 }
