@@ -1,0 +1,5 @@
+package com.tartner.dancehours.web.config
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer
+
+public open class MessageSecurityWebApplicationInitializer : AbstractSecurityWebApplicationInitializer()

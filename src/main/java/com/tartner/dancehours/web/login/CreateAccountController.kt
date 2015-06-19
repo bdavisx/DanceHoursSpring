@@ -13,19 +13,19 @@ import java.util.UUID
 import javax.validation.Valid
 
 Controller
-public class CreateAccountController
-@Autowired
-constructor(private val commandGateway: CommandGateway, private val validator: CreateAccountFormValidator) {
+public class CreateAccountController Autowired constructor(
+    private val commandGateway: CommandGateway,
+    private val validator: CreateAccountFormValidator) {
 
     RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.GET))
     public fun get(model: Model): String {
         val initialForm = CreateAccountForm()
         initialForm.firstName = "Bill"
-        initialForm.lastName = "Dav" +
-            "is"
+        initialForm.lastName = "Davis"
         initialForm.email = "bill@tartner.com"
         initialForm.password = "Abc@123"
         model.addAttribute("createAccountForm", initialForm)
+
         return "login/createAccount"
     }
 
@@ -35,7 +35,8 @@ constructor(private val commandGateway: CommandGateway, private val validator: C
     // TODO: redirect to home
 
     RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.POST))
-    public fun post(ModelAttribute("createAccountForm") Valid form: CreateAccountForm,
+    public fun post(
+        Valid ModelAttribute("createAccountForm") form: CreateAccountForm,
         bindingResult: BindingResult): String {
 
         validator.validate(form, bindingResult)

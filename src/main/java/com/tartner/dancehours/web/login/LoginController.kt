@@ -19,7 +19,8 @@ public class LoginController {
     }
 
     RequestMapping(value = "/login", method = arrayOf(RequestMethod.POST))
-    public fun post(RequestParam("username") username: String,
+    public fun post(
+        RequestParam("username") username: String,
         RequestParam("password") password: String): String {
 
         // TODO: implement actual login
