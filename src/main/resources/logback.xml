@@ -3,7 +3,7 @@
 	<contextName>dance-hours</contextName>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>c:\temp\testFile.log</file>
+		<file>c:\temp\danceHoursSpring.log</file>
 		<append>true</append>
 		<encoder>
 			<pattern>
@@ -21,8 +21,6 @@
 
 	<jmxConfigurator />
 
-	<logger name="logger.play" level="INFO" />
-	<logger name="logger.application" level="DEBUG" />
 	<logger name="com.tartner" level="ALL" />
 
 	<root level="DEBUG">
