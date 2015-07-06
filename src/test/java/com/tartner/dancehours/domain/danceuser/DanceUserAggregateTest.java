@@ -13,11 +13,21 @@ import org.axonframework.test.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
+
+//********************************************************************************************
+//********************************************************************************************
+//********************************************************************************************
+// WARNING: Do not convert to kotlin yet, the newGivenWhenThenFixture doesn't work correctly
+// or I'm doing something wrong
+//********************************************************************************************
+//********************************************************************************************
+//********************************************************************************************
 
 public class DanceUserAggregateTest {
 
@@ -94,28 +104,21 @@ public class DanceUserAggregateTest {
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
-        CreateDanceUserCommand command = new CreateDanceUserCommand( CreateUserId );
-        command
-            .email( CreateEmail )
-            .firstName( CreateFirstName )
-            .lastName( CreateLastName )
-            .password( CreatePassword );
+        CreateDanceUserCommand command = new CreateDanceUserCommand( CreateUserId, CreateEmail,
+            CreateFirstName, CreateLastName, CreatePassword, new HashSet<>() );
         return command;
     }
 
     private DanceUserCreatedEvent createCreatedEventForValidCommand(
         final CreateDanceUserCommand command ) {
-        DanceUserCreatedEvent event = new DanceUserCreatedEvent();
-        event.setUserId( CreateUserId );
-        event.setEmail( command.getEmail() );
-        event.setFirstName( command.getFirstName() );
-        event.setLastName( command.getLastName() );
+        DanceUserCreatedEvent event = new DanceUserCreatedEvent(CreateUserId, command.getEmail(),
+            command.getFirstName(), command.getLastName(), command.getRoles() );
         return event;
     }
 
     private PasswordSetEvent createPasswordSetEvent() {
         final TestPasswordHolder passwordHolder =
-            TestPasswordHolder.CreateDefaultTest();
+            TestPasswordHolder.Companion.CreateDefaultTest();
         return new PasswordSetEvent( createCommand.getUserId(),
             passwordHolder.getPasswordHash(), passwordHolder.getSalt() );
     }

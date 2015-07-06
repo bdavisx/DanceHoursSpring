@@ -1,5 +1,6 @@
 package com.tartner.dancehours.web.login
 
+import com.tartner.dancehours.domain.danceuser.DanceUserRole
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import java.util.HashSet
 import java.util.UUID
 import javax.validation.Valid
 
@@ -45,8 +47,8 @@ public class CreateAccountController Autowired constructor(
 
         // TODO: find the sequential UUID generator and use here
         commandGateway.send(
-            CreateDanceUserCommand(UUID.randomUUID()).email(form.email).firstName(
-                form.firstName).lastName(form.lastName).password(form.password))
+            CreateDanceUserCommand(UUID.randomUUID(), form.email,
+                form.lastName, form.firstName, form.password, HashSet<DanceUserRole>()))
 
         return "/home/homeSignedIn"
     }
