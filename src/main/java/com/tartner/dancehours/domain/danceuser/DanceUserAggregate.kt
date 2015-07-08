@@ -30,6 +30,8 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<UUID>() {
 
     }
 
+    // TODO: create classes for first/last name/email; have already screwed them up,
+    // this should make serialization go easier as well; look @ where else this s/b done
     private fun initialize(userId: UUID, email: String, lastName: String, firstName: String,
         queryModel: DanceUserAggregateQueryModel) {
         /* Note: do we want the "regular" or "container" parameters first?
