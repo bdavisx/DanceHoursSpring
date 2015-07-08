@@ -106,14 +106,14 @@ public class DanceUserAggregateTest {
 
     private CreateDanceUserCommand createValidCreateCommand() {
         CreateDanceUserCommand command = new CreateDanceUserCommand( CreateUserId, CreateEmail,
-            CreateFirstName, CreateLastName, CreatePassword, new HashSet<>() );
+            CreateLastName, CreateFirstName, CreatePassword, new HashSet<>() );
         return command;
     }
 
     private DanceUserCreatedEvent createCreatedEventForValidCommand(
         final CreateDanceUserCommand command ) {
         DanceUserCreatedEvent event = new DanceUserCreatedEvent(CreateUserId, command.getEmail(),
-            command.getFirstName(), command.getLastName(), command.getRoles() );
+            command.getLastName(), command.getFirstName(), command.getRoles() );
         return event;
     }
 
