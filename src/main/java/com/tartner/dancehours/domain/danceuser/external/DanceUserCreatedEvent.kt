@@ -4,9 +4,9 @@ import com.tartner.dancehours.domain.danceuser.DanceUserRole
 import java.util.UUID
 
 public data class DanceUserCreatedEvent(
-    val userId: UUID,
-    val email: String,
-    val lastName: String,
-    val firstName: String,
-    val roles: Set<DanceUserRole> )
+    public val userId: UUID,
+    public val email: String,
+    public val lastName: String,
+    public val firstName: String,
+    public val roles: Set<DanceUserRole> )
 

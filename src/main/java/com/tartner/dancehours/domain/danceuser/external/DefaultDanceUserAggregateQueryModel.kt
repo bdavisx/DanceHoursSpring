@@ -6,21 +6,27 @@ import org.springframework.stereotype.Component
 
 import java.util.UUID
 
+public interface DanceUserAggregateQueryModel {
+    public fun userIdAlreadyExists(userId: UUID): Boolean
+    public fun emailAlreadyExists(email: String): Boolean
+}
+
 Component
-public class DanceUserAggregateQueryModel Autowired constructor(
-    private val repository: DanceUserRepository ) {
+public class DefaultDanceUserAggregateQueryModel Autowired constructor(
+    private val repository: DanceUserRepository ) : DanceUserAggregateQueryModel {
 
     // Note: need to make this an interface that's implemented elsewhere,
     // this inverts the dependency, but for now, implement directly and then
     // refactor later
 
     /** Checks to see if the email is already in the sytem.  */
-    public fun userIdAlreadyExists(userId: UUID): Boolean {
+    public override fun userIdAlreadyExists(userId: UUID): Boolean {
         return repository.exists(userId)
     }
 
     /** Checks to see if the email is already in the system.  */
-    public fun emailAlreadyExists(email: String): Boolean {
+    public override fun emailAlreadyExists(email: String): Boolean {
         return repository.existsByEmail(email) > 0
     }
 }
+

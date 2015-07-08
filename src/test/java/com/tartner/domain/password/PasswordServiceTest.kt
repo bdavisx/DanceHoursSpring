@@ -15,7 +15,7 @@ public class PasswordServiceTest {
     Before
     public fun setUp() {
         passwordService = PasswordService()
-        eventFactory = PasswordEventFactory(SecureRandom.getInstance("SHA1PRNG"), passwordService)
+        eventFactory = PasswordEventFactory(SecureRandom.getInstance("SHA1PRNG"), passwordService!!)
     }
 
     Test throws(Exception::class)

@@ -7,9 +7,9 @@ import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExi
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
 import com.tartner.domain.password.PasswordSetEvent;
 import com.tartner.domain.password.TestPasswordHolder;
+import com.tartner.utilities.KFixtures;
 import org.axonframework.domain.DomainEventStream;
 import org.axonframework.test.FixtureConfiguration;
-import org.axonframework.test.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,7 +46,8 @@ public class DanceUserAggregateTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = Fixtures.newGivenWhenThenFixture( DanceUserAggregate.class );
+        //fixture = Fixtures.newGivenWhenThenFixture( DanceUserAggregate.class );
+        fixture = KFixtures.INSTANCE$.newGivenWhenThenFixture( DanceUserAggregate.class );
         createCommand = createValidCreateCommand();
         createdEvent = createCreatedEventForValidCommand( createCommand );
         queryModelMock = mock( DanceUserAggregateQueryModel.class );

@@ -1,7 +1,7 @@
 package com.tartner.dancehours.domain.danceuser
 
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand
-import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel
+import com.tartner.dancehours.domain.danceuser.external.DefaultDanceUserAggregateQueryModel
 import com.tartner.domain.password.PasswordEventFactory
 import com.tartner.domain.password.PasswordSetEvent
 import org.axonframework.commandhandling.annotation.CommandHandler
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 
 Component
 public class CreateDanceUserCommandHandler Autowired constructor(
-    private val queryModel: DanceUserAggregateQueryModel,
+    private val queryModel: DefaultDanceUserAggregateQueryModel,
     private val passwordEventFactory: PasswordEventFactory,
     private val aggregateRepository: Repository<DanceUserAggregate> ) {
 

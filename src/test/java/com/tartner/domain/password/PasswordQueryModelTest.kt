@@ -21,7 +21,7 @@ public class PasswordQueryModelTest {
     public fun setUp() {
         passwordService = PasswordService()
         repository = mock(javaClass<AggregatePasswordRepository>())
-        queryModel = PasswordQueryModel(passwordService, repository)
+        queryModel = PasswordQueryModel(passwordService!!, repository!!)
     }
 
     Test throws(Exception::class)

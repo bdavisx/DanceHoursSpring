@@ -22,11 +22,13 @@ Transactional
 TransactionConfiguration(defaultRollback = true)
 Category(IntegrationTestCategory::class)
 public open class PasswordProjectorTest {
-    Autowired private val repository: AggregatePasswordRepository? = null
+    Autowired private var repository: AggregatePasswordRepository? = null
 
     Test throws(Exception::class)
     public fun checkEvent() {
-        val projector = PasswordProjector(repository)
+        if( repository == null ) throw IllegalStateException("repository not initialized")
+
+        val projector = PasswordProjector(repository!!)
 
         val holder = TestPasswordHolder.CreateDefaultTest()
 
