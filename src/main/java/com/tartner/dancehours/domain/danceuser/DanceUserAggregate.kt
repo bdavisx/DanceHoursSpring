@@ -7,11 +7,10 @@ import com.tartner.domain.password.PasswordSetEvent
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler
-import java.util.HashSet
-import java.util.UUID
+import java.util.*
 
 public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<UUID>() {
-    AggregateIdentifier private var id: UUID? = null
+    @AggregateIdentifier private var id: UUID? = null
     private var firstName: String? = null
     private var lastName: String? = null
     private var email: String? = null
@@ -44,7 +43,7 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<UUID>() {
         apply(event)
     }
 
-    EventSourcingHandler
+    @EventSourcingHandler
     private fun danceUserCreated(event: DanceUserCreatedEvent) {
         id = event.userId
         email = event.email
@@ -52,7 +51,7 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<UUID>() {
         firstName = event.firstName
     }
 
-    EventSourcingHandler
+    @EventSourcingHandler
     private fun passwordSetEvent(event: PasswordSetEvent) {
         // Note: not sure that we actually need to save this if we're getting
         // the login validation data from a projection. It'll get there
@@ -64,11 +63,11 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<UUID>() {
         queryModel: DanceUserAggregateQueryModel) {
         Preconditions.checkNotNull(userId)
         Preconditions.checkNotNull(email)
-        Preconditions.checkArgument(!email.isEmpty())
+//        Preconditions.checkArgument(!email.isEmpty())
         Preconditions.checkNotNull(lastName)
-        Preconditions.checkArgument(!lastName.isEmpty())
+//        Preconditions.checkArgument(!lastName.isEmpty())
         Preconditions.checkNotNull(firstName)
-        Preconditions.checkArgument(!firstName.isEmpty())
+//        Preconditions.checkArgument(!firstName.isEmpty())
 
         if (queryModel.emailAlreadyExists(email)) {
             throw DanceUserEmailAlreadyExistsException(email)

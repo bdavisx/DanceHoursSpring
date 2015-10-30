@@ -27,13 +27,13 @@ import org.thymeleaf.templateresolver.TemplateResolver
 
 // TODO: organize pom references
 
-Configuration
-EnableWebMvc
-ComponentScan(basePackageClasses = arrayOf(Application::class))
-EnableTransactionManagement
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackageClasses = arrayOf(Application::class))
+@EnableTransactionManagement
 public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
 
-    Bean(name = arrayOf("messageSource"))
+    @Bean(name = arrayOf("messageSource"))
     public open fun messageSource(): MessageSource {
         val messageSource = ReloadableResourceBundleMessageSource()
         messageSource.setBasename(MESSAGE_SOURCE)
@@ -41,17 +41,17 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
         return messageSource
     }
 
-    Bean
+    @Bean
     public open fun templateResolver(): TemplateResolver {
         val templateResolver = ServletContextTemplateResolver()
-        templateResolver.setPrefix(ViewsLocation)
-        templateResolver.setSuffix(".html")
-        templateResolver.setTemplateMode("HTML5")
-        templateResolver.setCacheable(false)
+        templateResolver.prefix = ViewsLocation
+        templateResolver.suffix = ".html"
+        templateResolver.templateMode = "HTML5"
+        templateResolver.isCacheable = false
         return templateResolver
     }
 
-    Bean
+    @Bean
     public open fun templateEngine(): SpringTemplateEngine {
         val templateEngine = SpringTemplateEngine()
         templateEngine.setTemplateResolver(templateResolver())
@@ -60,11 +60,11 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
         return templateEngine
     }
 
-    Bean
+    @Bean
     public open fun viewResolver(): ThymeleafViewResolver {
         val thymeleafViewResolver = ThymeleafViewResolver()
-        thymeleafViewResolver.setTemplateEngine(templateEngine())
-        thymeleafViewResolver.setCharacterEncoding("UTF-8")
+        thymeleafViewResolver.templateEngine = templateEngine()
+        thymeleafViewResolver.characterEncoding = "UTF-8"
         return thymeleafViewResolver
     }
 
@@ -85,9 +85,9 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
     /**
      * Handles favicon.ico requests assuring no `404 Not Found` error is returned.
      */
-    Controller
+    @Controller
     class FaviconController {
-        RequestMapping("favicon.ico")
+        @RequestMapping("favicon.ico")
         fun favicon(): String {
             return "forward:/resources/images/favicon.ico"
         }
@@ -101,7 +101,7 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
         private val RESOURCES_LOCATION = "/resources/"
         private val RESOURCES_HANDLER = RESOURCES_LOCATION + "**"
 
-        Bean
+        @Bean
         public open fun propertyConfigInDev(): PropertySourcesPlaceholderConfigurer {
             return PropertySourcesPlaceholderConfigurer()
         }

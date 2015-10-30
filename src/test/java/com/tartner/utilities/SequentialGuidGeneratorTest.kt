@@ -5,7 +5,7 @@ import org.hamcrest.Matchers.notNullValue
 import org.junit.Test
 
 public class SequentialGuidGeneratorTest {
-    Test throws(Exception::class)
+    @Test @throws(Exception::class)
     public fun newId() {
         val generator = SequentialGuidGenerator()
 

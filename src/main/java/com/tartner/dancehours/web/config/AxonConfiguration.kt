@@ -25,59 +25,59 @@ import org.springframework.transaction.TransactionStatus
 
 import javax.sql.DataSource
 
-Configuration
-AnnotationDriven
+@Configuration
+@AnnotationDriven
 public open class AxonConfiguration {
-    Autowired private var dataSource: DataSource? = null
-    Autowired private var platformTransactionManager: PlatformTransactionManager? = null
+    @Autowired private var dataSource: DataSource? = null
+    @Autowired private var platformTransactionManager: PlatformTransactionManager? = null
 
-    Bean
+    @Bean
     public open fun guidGenerator(): UUIDGenerator {
         return SequentialGuidGenerator()
     }
 
-    Bean
+    @Bean
     public open fun eventBus(): EventBus {
         return SimpleEventBus()
     }
 
-    Bean
+    @Bean
     public open fun commandBus(): CommandBus {
         return SimpleCommandBus()
     }
 
-    Bean
+    @Bean
     public open fun commandGateway(): CommandGateway {
         return DefaultCommandGateway(commandBus())
     }
 
-    Bean
+    @Bean
     public open fun eventStore(): EventStore {
         val eventStore = JdbcEventStore(dataSource)
         return eventStore
     }
 
-    Bean
+    @Bean
     public open fun annotationEventListenerBeanPostProcessor(): AnnotationEventListenerBeanPostProcessor {
         val postProcessor = AnnotationEventListenerBeanPostProcessor()
         postProcessor.setEventBus(eventBus())
         return postProcessor
     }
 
-    Bean
+    @Bean
     public open fun annotationCommandHandlerBeanPostProcessor(): AnnotationCommandHandlerBeanPostProcessor {
         val postProcessor = AnnotationCommandHandlerBeanPostProcessor()
         postProcessor.setCommandBus(commandBus())
         return postProcessor
     }
 
-    Bean
+    @Bean
     public open fun unitOfWorkFactory(): UnitOfWorkFactory {
         val factory = DefaultUnitOfWorkFactory(transactionManager())
         return factory
     }
 
-    Bean
+    @Bean
     public open fun transactionManager(): TransactionManager<TransactionStatus> {
         val transactionManager = SpringTransactionManager(platformTransactionManager)
         return transactionManager

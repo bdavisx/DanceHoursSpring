@@ -7,14 +7,14 @@ import java.security.spec.KeySpec
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
-Component
+@Component
 public class PasswordService {
 
     fun createPasswordHash(keySpecification: KeySpec): ByteArray {
         try {
             val keyFactory = SecretKeyFactory.getInstance(SecretKeyAlgorithm)
 
-            return keyFactory.generateSecret(keySpecification).getEncoded()
+            return keyFactory.generateSecret(keySpecification).encoded
         } catch (exception: NoSuchAlgorithmException) {
             throw UnableToCreatePasswordException(exception)
         } catch (exception: InvalidKeySpecException) {

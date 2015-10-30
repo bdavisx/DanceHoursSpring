@@ -13,18 +13,18 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.transaction.TransactionConfiguration
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
-RunWith(SpringJUnit4ClassRunner::class)
-ContextConfiguration(classes = arrayOf(StandardIntegrationTestConfiguration::class))
-ComponentScan(basePackages = arrayOf("com.tartner.domain"))
-Transactional
-TransactionConfiguration(defaultRollback = true)
-Category(IntegrationTestCategory::class)
+@RunWith(SpringJUnit4ClassRunner::class)
+@ContextConfiguration(classes = arrayOf(StandardIntegrationTestConfiguration::class))
+@ComponentScan(basePackages = arrayOf("com.tartner.domain"))
+@Transactional
+@TransactionConfiguration(defaultRollback = true)
+@Category(IntegrationTestCategory::class)
 public open class PasswordProjectorTest {
-    Autowired private var repository: AggregatePasswordRepository? = null
+    @Autowired private var repository: AggregatePasswordRepository? = null
 
-    Test throws(Exception::class)
+    @Test @throws(Exception::class)
     public fun checkEvent() {
         if( repository == null ) throw IllegalStateException("repository not initialized")
 

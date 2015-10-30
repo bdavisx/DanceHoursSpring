@@ -8,7 +8,7 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import java.security.NoSuchAlgorithmException
-import java.util.UUID
+import java.util.*
 
 public class PasswordQueryModelTest {
 
@@ -16,15 +16,15 @@ public class PasswordQueryModelTest {
     private var queryModel: PasswordQueryModel? = null
     private var repository: AggregatePasswordRepository? = null
 
-    Before
-    throws(NoSuchAlgorithmException::class)
+    @Before
+    @throws(NoSuchAlgorithmException::class)
     public fun setUp() {
         passwordService = PasswordService()
         repository = mock(javaClass<AggregatePasswordRepository>())
         queryModel = PasswordQueryModel(passwordService!!, repository!!)
     }
 
-    Test throws(Exception::class)
+    @Test @throws(Exception::class)
     public fun testPasswordsMatch() {
         val id = UUID.randomUUID()
 

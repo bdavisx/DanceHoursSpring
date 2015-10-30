@@ -3,10 +3,9 @@ package com.tartner.domain.password
 import com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.util.Arrays
-import java.util.UUID
+import java.util.*
 
-Component
+@Component
 public class PasswordQueryModel
 @Autowired constructor(private val passwordService: PasswordService, private val repository: AggregatePasswordRepository) {
 

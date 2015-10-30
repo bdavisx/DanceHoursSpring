@@ -5,11 +5,11 @@ import org.axonframework.eventhandling.annotation.EventHandler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-Component
-public class PasswordProjector Autowired constructor(
+@Component
+public class PasswordProjector @Autowired constructor(
     private val repository: AggregatePasswordRepository) {
 
-    EventHandler
+    @EventHandler
     public fun handle(event: PasswordSetEvent) {
         var passwordRecord: AggregatePasswordsEntity? = repository.findOne(event.aggregateId)
 

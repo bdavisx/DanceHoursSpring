@@ -3,11 +3,11 @@ package com.tartner.domain.password
 import com.thoughtworks.xstream.XStream
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
-import java.util.Arrays
+import java.util.*
 
 public class TestPasswordDataGenerator(private val passwordService: PasswordService) {
 
-    throws(NoSuchAlgorithmException::class)
+    @throws(NoSuchAlgorithmException::class)
     public fun makePassword(password: String) {
         val salt = SecureRandom.getInstanceStrong().generateSeed(SaltLength)
 

@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
-Configuration
-EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public open class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     // TODO: add a two-factor authentication option; if user has a known
@@ -16,7 +16,7 @@ public open class SecurityConfig : WebSecurityConfigurerAdapter() {
     // or text link/code
 
 
-    throws(Exception::class)
+    @throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests().anyRequest().permitAll()
 
@@ -31,8 +31,8 @@ public open class SecurityConfig : WebSecurityConfigurerAdapter() {
         //                .permitAll();
     }
 
-    Autowired
-    throws(Exception::class)
+    @Autowired
+    @throws(Exception::class)
     public open fun configureGlobal(auth: AuthenticationManagerBuilder) {
         auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
     }

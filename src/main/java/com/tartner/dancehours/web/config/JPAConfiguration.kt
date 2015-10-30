@@ -11,31 +11,31 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 
 import javax.sql.DataSource
 
-Configuration
-EnableJpaRepositories("com.tartner")
+@Configuration
+@EnableJpaRepositories("com.tartner")
 public open class JPAConfiguration {
-    Autowired private var dataSource: DataSource? = null
+    @Autowired private var dataSource: DataSource? = null
 
-    Bean
+    @Bean
     public open fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val factoryBean = LocalContainerEntityManagerFactoryBean()
-        factoryBean.setDataSource(dataSource)
-        factoryBean.setPersistenceUnitName("persistenceUnit")
+        factoryBean.dataSource = dataSource
+        factoryBean.persistenceUnitName = "persistenceUnit"
         factoryBean.setPackagesToScan("com.tartner")
-        factoryBean.setJpaVendorAdapter(HibernateJpaVendorAdapter())
+        factoryBean.jpaVendorAdapter = HibernateJpaVendorAdapter()
 
         return factoryBean
     }
 
-    Bean
+    @Bean
     public open fun jpaTransactionManager(): JpaTransactionManager {
-        val jpaTransactionManager = JpaTransactionManager(entityManagerFactory().getObject())
-        jpaTransactionManager.setDataSource(dataSource)
-        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory().getObject())
+        val jpaTransactionManager = JpaTransactionManager(entityManagerFactory().`object`)
+        jpaTransactionManager.dataSource = dataSource
+        jpaTransactionManager.entityManagerFactory = entityManagerFactory().getObject()
         return jpaTransactionManager
     }
 
-    Bean
+    @Bean
     public open fun sessionFactory(): LocalSessionFactoryBean {
         val localSessionFactoryBean = LocalSessionFactoryBean()
         localSessionFactoryBean.setDataSource(dataSource)

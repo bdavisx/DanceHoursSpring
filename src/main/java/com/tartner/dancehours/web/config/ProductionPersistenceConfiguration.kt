@@ -9,23 +9,23 @@ import org.springframework.core.env.Environment
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy
 import javax.sql.DataSource
 
-Configuration
-PropertySource(value = *arrayOf("classpath:persistence.properties"))
+@Configuration
+@PropertySource(value = *arrayOf("classpath:persistence.properties"))
 public open class ProductionPersistenceConfiguration {
-    private Autowired var environment: Environment? = null
+    private @Autowired var environment: Environment? = null
 
-    Bean
+    @Bean
     public open fun dataSource(): DataSource {
         val dataSource = BasicDataSource()
         // TODO: is there a better way to handle this? (datasourceURL())
-        dataSource.setUrl(datasourceURL())
-        dataSource.setUsername(username())
-        dataSource.setPassword(password())
-        dataSource.setDriverClassName(driverClassName())
+        dataSource.url = datasourceURL()
+        dataSource.username = username()
+        dataSource.password = password()
+        dataSource.driverClassName = driverClassName()
         return dataSource
     }
 
-    Bean
+    @Bean
     public open fun transactionAwareDataSource(): TransactionAwareDataSourceProxy {
         return TransactionAwareDataSourceProxy(dataSource())
     }

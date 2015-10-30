@@ -8,20 +8,20 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
-import java.util.Arrays
+import java.util.*
 
-Controller
+@Controller
 public class LoginController {
 
-    RequestMapping(value = "/login", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/login", method = arrayOf(RequestMethod.GET))
     public fun get(): String {
         return "login/login"
     }
 
-    RequestMapping(value = "/login", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "/login", method = arrayOf(RequestMethod.POST))
     public fun post(
-        RequestParam("username") username: String,
-        RequestParam("password") password: String): String {
+        @RequestParam("username") username: String,
+        @RequestParam("password") password: String): String {
 
         // TODO: implement actual login
 
@@ -31,9 +31,9 @@ public class LoginController {
                     return "ROLE_USER"
                 }
             })))
-        val authentication = UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
+        val authentication = UsernamePasswordAuthenticationToken(user, null, user.authorities)
 
-        SecurityContextHolder.getContext().setAuthentication(authentication)
+        SecurityContextHolder.getContext().authentication = authentication
 
         return "redirect:/"
     }

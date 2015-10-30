@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-Component Transactional public class DanceUserProjector Autowired constructor(
-    PersistenceContext private val em: EntityManager ) {
+@Component @Transactional public class DanceUserProjector @Autowired constructor(
+    @PersistenceContext private val em: EntityManager ) {
 
-    EventHandler
+    @EventHandler
     public fun handle(event: DanceUserCreatedEvent) {
         val userRecord = DanceUserEntity()
         userRecord.userId = event.userId

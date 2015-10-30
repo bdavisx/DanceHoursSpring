@@ -5,20 +5,20 @@ import org.hamcrest.Matchers.notNullValue
 import org.junit.Before
 import org.junit.Test
 import java.security.SecureRandom
-import java.util.UUID
+import java.util.*
 
 public class PasswordServiceTest {
 
     private var eventFactory: PasswordEventFactory? = null
     private var passwordService: PasswordService? = null
 
-    Before
+    @Before
     public fun setUp() {
         passwordService = PasswordService()
         eventFactory = PasswordEventFactory(SecureRandom.getInstance("SHA1PRNG"), passwordService!!)
     }
 
-    Test throws(Exception::class)
+    @Test @throws(Exception::class)
     public fun createPasswordSetEvent() {
         val id = UUID.randomUUID()
 

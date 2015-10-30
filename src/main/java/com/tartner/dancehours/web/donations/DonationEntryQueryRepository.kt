@@ -3,11 +3,10 @@ package com.tartner.dancehours.web.donations
 import com.tartner.utilities.UUIDGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
-import java.util.UUID
-
-Service
-public class DonationEntryQueryRepository Autowired constructor( val uuidGenerator: UUIDGenerator ) {
+@Service
+public class DonationEntryQueryRepository @Autowired constructor( val uuidGenerator: UUIDGenerator ) {
 
     public fun CreateNewEntryForm(userId: String): DonationEntryForm {
         val form = DonationEntryForm(

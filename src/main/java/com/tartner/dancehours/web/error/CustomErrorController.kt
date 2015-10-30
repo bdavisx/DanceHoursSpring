@@ -9,13 +9,13 @@ import java.text.MessageFormat
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-Controller
+@Controller
 class CustomErrorController {
 
     /**
      * Display an error page, as defined in web.xml `custom-error` element.
      */
-    RequestMapping("/generalError")
+    @RequestMapping("/generalError")
     public fun generalError(request: HttpServletRequest, response: HttpServletResponse,
         model: Model): String {
         // retrieve some useful information from the request
@@ -41,6 +41,6 @@ class CustomErrorController {
             return Throwables.getRootCause(throwable).getMessage()
         }
         val httpStatus = HttpStatus.valueOf(statusCode!!)
-        return httpStatus.getReasonPhrase()
+        return httpStatus.reasonPhrase
     }
 }

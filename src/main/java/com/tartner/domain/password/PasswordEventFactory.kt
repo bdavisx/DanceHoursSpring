@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.security.SecureRandom
 import java.security.spec.KeySpec
-import java.util.UUID
+import java.util.*
 import javax.crypto.spec.PBEKeySpec
 
-Component
-public class PasswordEventFactory Autowired constructor(
+@Component
+public class PasswordEventFactory @Autowired constructor(
     private val random: SecureRandom, private val passwordService: PasswordService) {
 
     public fun createPasswordSetEvent(aggregateId: UUID, password: String): PasswordSetEvent {

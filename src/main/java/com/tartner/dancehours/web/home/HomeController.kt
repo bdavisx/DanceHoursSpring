@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import java.security.Principal
 
-Controller
+@Controller
 public class HomeController {
-    Autowired private val queryModel: DanceUserListQueryModel? = null
+    @Autowired private val queryModel: DanceUserListQueryModel? = null
 
-    RequestMapping(value = "/", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/", method = arrayOf(RequestMethod.GET))
     public fun index(principal: Principal?): String {
         val allUsers = queryModel!!.getAllUsers()
 

@@ -10,8 +10,8 @@ import org.axonframework.unitofwork.UnitOfWork
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-Component
-public class CreateDanceUserCommandHandler Autowired constructor(
+@Component
+public class CreateDanceUserCommandHandler @Autowired constructor(
     private val queryModel: DefaultDanceUserAggregateQueryModel,
     private val passwordEventFactory: PasswordEventFactory,
     private val aggregateRepository: Repository<DanceUserAggregate> ) {
@@ -37,7 +37,7 @@ public class CreateDanceUserCommandHandler Autowired constructor(
 
         For consistencies sake, I'm going w/ having it all in the aggregate.
         */
-    CommandHandler
+    @CommandHandler
     public fun createDanceUser(command: CreateDanceUserCommand, unitOfWork: UnitOfWork) {
         val aggregate = DanceUserAggregate()
         val passwordSetEvent = createPasswordSetEvent(command)

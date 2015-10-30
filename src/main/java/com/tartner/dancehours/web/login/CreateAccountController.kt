@@ -10,16 +10,15 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import java.util.HashSet
-import java.util.UUID
+import java.util.*
 import javax.validation.Valid
 
-Controller
-public class CreateAccountController Autowired constructor(
+@Controller
+public class CreateAccountController @Autowired constructor(
     private val commandGateway: CommandGateway,
     private val validator: CreateAccountFormValidator) {
 
-    RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.GET))
     public fun get(model: Model): String {
         val initialForm = CreateAccountForm()
         initialForm.firstName = "Bill"
@@ -36,9 +35,9 @@ public class CreateAccountController Autowired constructor(
     // TODO: login user
     // TODO: redirect to home
 
-    RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.POST))
     public fun post(
-        Valid ModelAttribute("createAccountForm") form: CreateAccountForm,
+        @Valid @ModelAttribute("createAccountForm") form: CreateAccountForm,
         bindingResult: BindingResult): String {
 
         validator.validate(form, bindingResult)

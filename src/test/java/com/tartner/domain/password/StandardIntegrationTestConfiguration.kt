@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 
-Configuration
-Import(TestPersistenceConfiguration::class, AxonConfiguration::class, PasswordConfiguration::class,
+@Configuration
+@Import(TestPersistenceConfiguration::class, AxonConfiguration::class, PasswordConfiguration::class,
     JPAConfiguration::class)
-public object StandardIntegrationTestConfiguration {
-    Bean public fun propertyConfigInDev(): PropertySourcesPlaceholderConfigurer {
+public open class StandardIntegrationTestConfiguration {
+    @Bean public open fun propertyConfigInDev(): PropertySourcesPlaceholderConfigurer {
         return PropertySourcesPlaceholderConfigurer()
     }
 }
