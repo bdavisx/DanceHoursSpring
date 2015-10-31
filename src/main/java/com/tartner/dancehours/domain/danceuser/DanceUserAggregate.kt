@@ -12,7 +12,6 @@ import org.axonframework.eventsourcing.annotation.AggregateIdentifier
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler
 import java.util.*
 
-
 public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>() {
     @AggregateIdentifier private var id: DanceHoursId = DanceHoursId.Default.Empty
     private var firstName: String = String.Empty

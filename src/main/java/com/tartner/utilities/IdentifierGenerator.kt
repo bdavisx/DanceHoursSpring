@@ -7,6 +7,8 @@ public interface IdentifierGenerator {
 
     companion object {
         var defaultGenerator : IdentifierGenerator = SequentialIdentifierGenerator()
+
+        fun createDefault() : DanceHoursId = defaultGenerator.newId()
     }
 }
 

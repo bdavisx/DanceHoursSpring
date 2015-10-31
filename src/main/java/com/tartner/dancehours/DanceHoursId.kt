@@ -29,6 +29,6 @@ class DanceHoursId internal constructor ( public val identifier : UUID ) : Seria
 
         fun create(uuid : UUID) = DanceHoursId(uuid)
 
-        fun create() = IdentifierGenerator.defaultGenerator.newId()
+        fun create() = IdentifierGenerator.createDefault()
     }
 }
