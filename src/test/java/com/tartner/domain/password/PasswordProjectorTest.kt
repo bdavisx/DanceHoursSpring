@@ -1,6 +1,7 @@
 package com.tartner.domain.password
 
 import com.tartner.IntegrationTestCategory
+import com.tartner.dancehours.DanceHoursId
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
@@ -32,12 +33,12 @@ public open class PasswordProjectorTest {
 
         val holder = TestPasswordHolder.CreateDefaultTest()
 
-        val uuid = UUID.randomUUID()
+        val userId = DanceHoursId.create(UUID.randomUUID())
 
-        val event = PasswordSetEvent(uuid, holder.passwordHash, holder.salt)
+        val event = PasswordSetEvent(userId, holder.passwordHash, holder.salt)
         projector.handle(event)
 
-        val passwordsEntity = repository!!.findOne(uuid)
+        val passwordsEntity = repository!!.findOne(userId)
 
         assertThat(passwordsEntity, notNullValue())
 

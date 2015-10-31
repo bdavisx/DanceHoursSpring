@@ -15,7 +15,7 @@ public class PasswordProjector @Autowired constructor(
 
         if (passwordRecord == null) {
             passwordRecord = AggregatePasswordsEntity()
-            passwordRecord.aggregateId = event.aggregateId
+            passwordRecord.aggregateId = event.aggregateId.identifier
         }
 
         passwordRecord.passwordHash = event.passwordHash

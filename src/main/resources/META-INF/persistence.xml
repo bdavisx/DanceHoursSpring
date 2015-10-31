@@ -6,7 +6,7 @@
     <persistence-unit name="persistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.tartner.dancehours.querymodel.jpa.AggregatePasswordsEntity</class>
-        <class>com.tartner.dancehours.querymodel.jpa.DanceUserEntity</class>
+        <class>com.tartner.dancehours.querymodel.jpa.DanceUserDataEntity</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

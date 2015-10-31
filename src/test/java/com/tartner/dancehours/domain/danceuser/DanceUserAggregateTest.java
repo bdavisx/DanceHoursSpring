@@ -1,5 +1,6 @@
 package com.tartner.dancehours.domain.danceuser;
 
+import com.tartner.dancehours.DanceHoursId;
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
@@ -10,6 +11,7 @@ import com.tartner.domain.password.TestPasswordHolder;
 import com.tartner.utilities.KFixtures;
 import org.axonframework.domain.DomainEventStream;
 import org.axonframework.test.FixtureConfiguration;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +49,7 @@ public class DanceUserAggregateTest {
     @Before
     public void setUp() throws Exception {
         //fixture = Fixtures.newGivenWhenThenFixture( DanceUserAggregate.class );
-        fixture = KFixtures.INSTANCE$.newGivenWhenThenFixture( DanceUserAggregate.class );
+        fixture = KFixtures.INSTANCE.newGivenWhenThenFixture( DanceUserAggregate.class );
         createCommand = createValidCreateCommand();
         createdEvent = createCreatedEventForValidCommand( createCommand );
         queryModelMock = mock( DanceUserAggregateQueryModel.class );
@@ -65,12 +67,15 @@ public class DanceUserAggregateTest {
         user.create( createCommand, queryModelMock, passwordSetEvent );
 
         verify( queryModelMock ).emailAlreadyExists( CreateEmail );
-        verify( queryModelMock ).userIdAlreadyExists( CreateUserId );
+        verify( queryModelMock ).userIdAlreadyExists(buildCreateUserId());
 
         final DomainEventStream events = user.getUncommittedEvents();
         assertThat( createdEvent, equalTo( events.next().getPayload() ) );
         assertThat( passwordSetEvent, equalTo( events.next().getPayload() ) );
     }
+
+    @NotNull
+    private DanceHoursId buildCreateUserId() {return DanceHoursId.Default.create(CreateUserId);}
 
     @Test( expected = DanceUserIdAlreadyExistsException.class )
     public void danceUserCreatedDuplicateUserId() throws Exception {
@@ -81,7 +86,7 @@ public class DanceUserAggregateTest {
 
         DanceUserAggregateQueryModel queryModelMock  =
             mock( DanceUserAggregateQueryModel.class );
-        when( queryModelMock.userIdAlreadyExists( CreateUserId ) )
+        when( queryModelMock.userIdAlreadyExists( buildCreateUserId() ) )
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
@@ -105,15 +110,15 @@ public class DanceUserAggregateTest {
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
-        CreateDanceUserCommand command = new CreateDanceUserCommand( CreateUserId, CreateEmail,
+        CreateDanceUserCommand command = new CreateDanceUserCommand( buildCreateUserId(), CreateEmail,
             CreateLastName, CreateFirstName, CreatePassword, new HashSet<>() );
         return command;
     }
 
     private DanceUserCreatedEvent createCreatedEventForValidCommand(
         final CreateDanceUserCommand command ) {
-        DanceUserCreatedEvent event = new DanceUserCreatedEvent(CreateUserId, command.getEmail(),
-            command.getLastName(), command.getFirstName(), command.getRoles() );
+        DanceUserCreatedEvent event = new DanceUserCreatedEvent(buildCreateUserId(),
+            command.getEmail(), command.getLastName(), command.getFirstName(), command.getRoles());
         return event;
     }
 

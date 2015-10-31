@@ -5,7 +5,7 @@ package com.tartner.dancehours.domain.danceuser
 // to the database...
 
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent
-import com.tartner.dancehours.querymodel.jpa.DanceUserEntity
+import com.tartner.dancehours.querymodel.jpa.DanceUserDataEntity
 import org.axonframework.eventhandling.annotation.EventHandler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -19,8 +19,8 @@ import javax.persistence.PersistenceContext
 
     @EventHandler
     public fun handle(event: DanceUserCreatedEvent) {
-        val userRecord = DanceUserEntity()
-        userRecord.userId = event.userId
+        val userRecord = DanceUserDataEntity()
+        userRecord.userId = event.userId.identifier
         userRecord.email = event.email
         userRecord.firstName = event.firstName
         userRecord.lastName = event.lastName

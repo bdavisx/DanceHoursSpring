@@ -1,7 +1,7 @@
 package com.tartner.dancehours.web.config
 
-import com.tartner.utilities.SequentialGuidGenerator
-import com.tartner.utilities.UUIDGenerator
+import com.tartner.utilities.IdentifierGenerator
+import com.tartner.utilities.SequentialIdentifierGenerator
 import org.axonframework.commandhandling.CommandBus
 import org.axonframework.commandhandling.SimpleCommandBus
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor
@@ -22,7 +22,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.TransactionStatus
-
 import javax.sql.DataSource
 
 @Configuration
@@ -32,8 +31,8 @@ public open class AxonConfiguration {
     @Autowired private var platformTransactionManager: PlatformTransactionManager? = null
 
     @Bean
-    public open fun guidGenerator(): UUIDGenerator {
-        return SequentialGuidGenerator()
+    public open fun guidGenerator(): IdentifierGenerator {
+        return SequentialIdentifierGenerator()
     }
 
     @Bean

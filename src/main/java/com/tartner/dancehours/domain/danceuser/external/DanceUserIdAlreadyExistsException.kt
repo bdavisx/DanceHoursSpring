@@ -1,5 +1,5 @@
 package com.tartner.dancehours.domain.danceuser.external
 
-import java.util.UUID
+import com.tartner.dancehours.DanceHoursId
 
-public class DanceUserIdAlreadyExistsException(public val userId: UUID) : RuntimeException()
+public class DanceUserIdAlreadyExistsException(public val userId: DanceHoursId) : RuntimeException()

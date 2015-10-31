@@ -1,11 +1,11 @@
 package com.tartner.dancehours.domain.danceuser.external
 
+import com.tartner.dancehours.DanceHoursId
 import com.tartner.dancehours.domain.danceuser.DanceUserRole
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier
-import java.util.*
 
 public data class CreateDanceUserCommand(
-    @TargetAggregateIdentifier val userId: UUID,
+    @TargetAggregateIdentifier val userId: DanceHoursId,
     var email: String,
     var lastName: String,
     var firstName: String,

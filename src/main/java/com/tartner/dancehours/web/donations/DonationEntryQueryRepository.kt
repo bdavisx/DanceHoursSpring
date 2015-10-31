@@ -1,16 +1,16 @@
 package com.tartner.dancehours.web.donations
 
-import com.tartner.utilities.UUIDGenerator
+import com.tartner.dancehours.DanceHoursId
+import com.tartner.utilities.IdentifierGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
-public class DonationEntryQueryRepository @Autowired constructor( val uuidGenerator: UUIDGenerator ) {
+public class DonationEntryQueryRepository @Autowired constructor( val identifierGenerator : IdentifierGenerator) {
 
     public fun CreateNewEntryForm(userId: String): DonationEntryForm {
         val form = DonationEntryForm(
-            entryId = uuidGenerator.newId(),
+            entryId = identifierGenerator.newId(),
             memberDonationWasProvidedFor = defaultMemberIdForDonations( userId ),
             donationTypeId = defaultDonationType( userId ) )
 
@@ -18,11 +18,11 @@ public class DonationEntryQueryRepository @Autowired constructor( val uuidGenera
     }
 
     // TODO: make this work for real
-    private fun defaultDonationType(userId: String): UUID {
-        return UUID.randomUUID()
+    private fun defaultDonationType(userId: String): DanceHoursId {
+        return identifierGenerator.newId()
     }
 
-    private fun defaultMemberIdForDonations(userId: String): UUID {
-        return UUID.randomUUID()
+    private fun defaultMemberIdForDonations(userId: String): DanceHoursId {
+        return identifierGenerator.newId()
     }
 }

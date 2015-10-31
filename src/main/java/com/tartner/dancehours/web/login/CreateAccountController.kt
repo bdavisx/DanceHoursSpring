@@ -1,5 +1,6 @@
 package com.tartner.dancehours.web.login
 
+import com.tartner.dancehours.DanceHoursId
 import com.tartner.dancehours.domain.danceuser.DanceUserRole
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -46,7 +47,7 @@ public class CreateAccountController @Autowired constructor(
 
         // TODO: find the sequential UUID generator and use here
         commandGateway.send(
-            CreateDanceUserCommand(UUID.randomUUID(), form.email,
+            CreateDanceUserCommand(DanceHoursId.create(UUID.randomUUID()), form.email,
                 form.lastName, form.firstName, form.password, HashSet<DanceUserRole>()))
 
         return "/home/homeSignedIn"

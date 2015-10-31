@@ -1,18 +1,18 @@
 package com.tartner.domain.password
 
+import com.tartner.dancehours.DanceHoursId
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.security.SecureRandom
 import java.security.spec.KeySpec
-import java.util.*
 import javax.crypto.spec.PBEKeySpec
 
 @Component
 public class PasswordEventFactory @Autowired constructor(
     private val random: SecureRandom, private val passwordService: PasswordService) {
 
-    public fun createPasswordSetEvent(aggregateId: UUID, password: String): PasswordSetEvent {
+    public fun createPasswordSetEvent(aggregateId: DanceHoursId, password: String): PasswordSetEvent {
         val salt = random.generateSeed(SaltLength)
         val keySpecification = passwordService.createKeySpecification(password, salt)
         val passwordHash = passwordService.createPasswordHash(keySpecification)

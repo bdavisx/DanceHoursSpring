@@ -1,6 +1,7 @@
 package com.tartner.dancehours.querymodel.jpa
 
 import com.google.common.base.Objects
+import com.tartner.utilities.emptyUUID
 import org.hibernate.annotations.Type
 import java.util.*
 import javax.persistence.*
@@ -10,7 +11,7 @@ import javax.persistence.*
 public class UserRolesEntity {
     @Id @Type(type = "pg-uuid")
     @Column(name = "role_id", nullable = false, insertable = true, updatable = true)
-    public var roleId: UUID? = null
+    public var roleId: UUID = emptyUUID()
 
     @Basic
     @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 255)

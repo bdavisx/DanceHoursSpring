@@ -1,6 +1,8 @@
 package com.tartner.dancehours.web.donations
 
-public data class DanceMemberListItem (
+import com.tartner.dancehours.DanceHoursId
 
+public data class DanceMemberListItem (
+    val userId : DanceHoursId
 ) {
 }

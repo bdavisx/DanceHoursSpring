@@ -1,5 +1,6 @@
 package com.tartner.domain.password
 
+import com.tartner.dancehours.DanceHoursId
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.notNullValue
 import org.junit.Before
@@ -18,11 +19,11 @@ public class PasswordServiceTest {
         eventFactory = PasswordEventFactory(SecureRandom.getInstance("SHA1PRNG"), passwordService!!)
     }
 
-    @Test @throws(Exception::class)
+    @Test
     public fun createPasswordSetEvent() {
-        val id = UUID.randomUUID()
+        val userUd = DanceHoursId.create(UUID.randomUUID())
 
-        val encodedPassword = eventFactory!!.createPasswordSetEvent(id, TestPassword)
+        val encodedPassword = eventFactory!!.createPasswordSetEvent(userUd, TestPassword)
 
         assertThat(encodedPassword, notNullValue())
         assertThat(encodedPassword.hashCode(), notNullValue())
@@ -30,7 +31,6 @@ public class PasswordServiceTest {
 
     companion object {
         public val TestPassword: String = "P@ssw0rd"
-        private val SaltLength = 32
     }
 
 }

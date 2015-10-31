@@ -1,12 +1,12 @@
 package com.tartner.dancehours.domain.danceuser.external
 
+import com.tartner.dancehours.DanceHoursId
 import com.tartner.dancehours.querymodel.danceuser.DanceUserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.util.*
 
 public interface DanceUserAggregateQueryModel {
-    public fun userIdAlreadyExists(userId: UUID): Boolean
+    public fun userIdAlreadyExists(userId: DanceHoursId): Boolean
     public fun emailAlreadyExists(email: String): Boolean
 }
 
@@ -19,7 +19,7 @@ public class DefaultDanceUserAggregateQueryModel @Autowired constructor(
     // refactor later
 
     /** Checks to see if the email is already in the sytem.  */
-    public override fun userIdAlreadyExists(userId: UUID): Boolean {
+    public override fun userIdAlreadyExists(userId : DanceHoursId) : Boolean {
         return repository.exists(userId)
     }
 
