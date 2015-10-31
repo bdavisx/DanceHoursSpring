@@ -4,6 +4,7 @@ import com.tartner.dancehours.DanceHoursId;
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserCreatedEvent;
+import com.tartner.dancehours.domain.danceuser.external.DanceUserEmailAlreadyExistsException;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserIdAlreadyExistsException;
 import com.tartner.domain.password.PasswordSetEvent;
 import com.tartner.domain.password.TestPasswordHolder;
@@ -17,6 +18,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.UUID;
 
+import static com.tartner.ExpectExceptionInTest.expectException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
@@ -106,8 +108,8 @@ public class DanceUserAggregateTest {
 
         DanceUserAggregate user = new DanceUserAggregate();
 
-//        assertFailsWith( DanceUserEmailAlreadyExistsException.class ) {
-//            user.create( createCommand, queryModelMock, passwordSetEvent ) }
+        expectException(DanceUserEmailAlreadyExistsException.class, () -> {
+            user.create( createCommand, queryModelMock, passwordSetEvent ); } );
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
