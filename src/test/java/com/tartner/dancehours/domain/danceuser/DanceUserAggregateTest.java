@@ -1,5 +1,6 @@
 package com.tartner.dancehours.domain.danceuser;
 
+import com.tartner.ExpectException;
 import com.tartner.dancehours.DanceHoursId;
 import com.tartner.dancehours.domain.danceuser.external.CreateDanceUserCommand;
 import com.tartner.dancehours.domain.danceuser.external.DanceUserAggregateQueryModel;
@@ -18,7 +19,6 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.UUID;
 
-import static com.tartner.ExpectExceptionInTest.expectException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
@@ -78,12 +78,9 @@ public class DanceUserAggregateTest {
     @NotNull
     private DanceHoursId buildCreateUserId() {return DanceHoursId.Default.create(CreateUserId);}
 
-    @Test( expected = DanceUserIdAlreadyExistsException.class )
+    @Test()
     public void danceUserCreatedDuplicateUserId() throws Exception {
         CreateDanceUserCommand command = createValidCreateCommand();
-
-        DanceUserCreatedEvent event =
-            createCreatedEventForValidCommand( command );
 
         DanceUserAggregateQueryModel queryModelMock  =
             mock( DanceUserAggregateQueryModel.class );
@@ -91,15 +88,13 @@ public class DanceUserAggregateTest {
             .thenReturn( true );
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock, passwordSetEvent );
+        ExpectException.expectException(DanceUserIdAlreadyExistsException.class, () -> {
+            user.create(createCommand, queryModelMock, passwordSetEvent ); } );
     }
 
     @Test
     public void danceUserCreatedDuplicateEmail() throws Exception {
         CreateDanceUserCommand command = createValidCreateCommand();
-
-        DanceUserCreatedEvent event =
-            createCreatedEventForValidCommand( command );
 
         DanceUserAggregateQueryModel queryModelMock =
             mock( DanceUserAggregateQueryModel.class );
@@ -108,7 +103,7 @@ public class DanceUserAggregateTest {
 
         DanceUserAggregate user = new DanceUserAggregate();
 
-        expectException(DanceUserEmailAlreadyExistsException.class, () -> {
+        ExpectException.expectException(DanceUserEmailAlreadyExistsException.class, () -> {
             user.create( createCommand, queryModelMock, passwordSetEvent ); } );
     }
 

@@ -63,12 +63,12 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
         password = EncodedPassword(event)
     }
 
-    private fun validateInitialize(userId: DanceHoursId, email: String, lastName: String, firstName: String,
-        queryModel: DanceUserAggregateQueryModel) {
-        Preconditions.checkArgument(!userId.equals(DanceHoursId.Empty))
-        KPreconditions.checkNotEmpty(email)
-        Preconditions.checkArgument(!lastName.isEmpty())
-        Preconditions.checkArgument(!firstName.isEmpty())
+    private fun validateInitialize(userId : DanceHoursId, email : String, lastName : String,
+        firstName : String, queryModel : DanceUserAggregateQueryModel) {
+        Preconditions.checkArgument(!userId.equals(DanceHoursId.Empty), "No userId supplied")
+        KPreconditions.checkNotEmpty(email, "email was empty")
+        Preconditions.checkArgument(!lastName.isEmpty() || !firstName.isEmpty(), "First or last " +
+            "name was empty")
 
         if (queryModel.emailAlreadyExists(email)) {
             throw DanceUserEmailAlreadyExistsException(email)
