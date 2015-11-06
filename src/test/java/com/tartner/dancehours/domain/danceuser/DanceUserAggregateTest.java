@@ -35,7 +35,7 @@ import static org.mockito.Mockito.*;
 public class DanceUserAggregateTest {
 
     private static String UUIDString = "e78320a0-48b9-490a-8b1b-f5bcdcf34995";
-    public static final UUID CreateUserId = UUID.fromString( UUIDString );
+    public static final UUID CreateUserId = UUID.fromString(UUIDString);
     public static final String CreateEmail = "bdavisx@yahoo.com";
     public static final String CreateFirstName = "Bill";
     public static final String CreateLastName = "Davis";
@@ -50,10 +50,10 @@ public class DanceUserAggregateTest {
     @Before
     public void setUp() throws Exception {
         //fixture = Fixtures.newGivenWhenThenFixture( DanceUserAggregate.class );
-        fixture = KFixtures.INSTANCE.newGivenWhenThenFixture( DanceUserAggregate.class );
+        fixture = KFixtures.INSTANCE.newGivenWhenThenFixture(DanceUserAggregate.class);
         createCommand = createValidCreateCommand();
-        createdEvent = createCreatedEventForValidCommand( createCommand );
-        queryModelMock = mock( DanceUserAggregateQueryModel.class );
+        createdEvent = createCreatedEventForValidCommand(createCommand);
+        queryModelMock = mock(DanceUserAggregateQueryModel.class);
         passwordSetEvent = createPasswordSetEvent();
     }
 
@@ -65,14 +65,14 @@ public class DanceUserAggregateTest {
             be doing anything else. */
 
         DanceUserAggregate user = new DanceUserAggregate();
-        user.create( createCommand, queryModelMock, passwordSetEvent );
+        user.create(createCommand, queryModelMock, passwordSetEvent);
 
-        verify( queryModelMock ).emailAlreadyExists( CreateEmail );
-        verify( queryModelMock ).userIdAlreadyExists(buildCreateUserId());
+        verify(queryModelMock).emailAlreadyExists(CreateEmail);
+        verify(queryModelMock).userIdAlreadyExists(buildCreateUserId());
 
         final DomainEventStream events = user.getUncommittedEvents();
-        assertThat( createdEvent, equalTo( events.next().getPayload() ) );
-        assertThat( passwordSetEvent, equalTo( events.next().getPayload() ) );
+        assertThat(createdEvent, equalTo(events.next().getPayload()));
+        assertThat(passwordSetEvent, equalTo(events.next().getPayload()));
     }
 
     @NotNull
@@ -82,14 +82,13 @@ public class DanceUserAggregateTest {
     public void danceUserCreatedDuplicateUserId() throws Exception {
         CreateDanceUserCommand command = createValidCreateCommand();
 
-        DanceUserAggregateQueryModel queryModelMock  =
-            mock( DanceUserAggregateQueryModel.class );
-        when( queryModelMock.userIdAlreadyExists( buildCreateUserId() ) )
-            .thenReturn( true );
+        DanceUserAggregateQueryModel queryModelMock = mock(DanceUserAggregateQueryModel.class);
+        when(queryModelMock.userIdAlreadyExists(buildCreateUserId())).thenReturn(true);
 
         DanceUserAggregate user = new DanceUserAggregate();
         ExpectException.expectException(DanceUserIdAlreadyExistsException.class, () -> {
-            user.create(createCommand, queryModelMock, passwordSetEvent ); } );
+            user.create(createCommand, queryModelMock, passwordSetEvent);
+        });
     }
 
     @Test
@@ -97,24 +96,25 @@ public class DanceUserAggregateTest {
         CreateDanceUserCommand command = createValidCreateCommand();
 
         DanceUserAggregateQueryModel queryModelMock =
-            mock( DanceUserAggregateQueryModel.class );
-        when( queryModelMock.emailAlreadyExists( CreateEmail ) )
-            .thenReturn( true );
+            mock(DanceUserAggregateQueryModel.class);
+        when(queryModelMock.emailAlreadyExists(CreateEmail))
+            .thenReturn(true);
 
         DanceUserAggregate user = new DanceUserAggregate();
 
-        ExpectException.expectException(DanceUserEmailAlreadyExistsException.class, () -> {
-            user.create( createCommand, queryModelMock, passwordSetEvent ); } );
+        ExpectException.expectException(DanceUserEmailAlreadyExistsException.class,
+            () -> user.create(createCommand, queryModelMock, passwordSetEvent));
     }
 
     private CreateDanceUserCommand createValidCreateCommand() {
-        CreateDanceUserCommand command = new CreateDanceUserCommand( buildCreateUserId(), CreateEmail,
-            CreateLastName, CreateFirstName, CreatePassword, new HashSet<>() );
+        CreateDanceUserCommand command =
+            new CreateDanceUserCommand(buildCreateUserId(), CreateEmail,
+                CreateLastName, CreateFirstName, CreatePassword, new HashSet<>());
         return command;
     }
 
     private DanceUserCreatedEvent createCreatedEventForValidCommand(
-        final CreateDanceUserCommand command ) {
+        final CreateDanceUserCommand command) {
         DanceUserCreatedEvent event = new DanceUserCreatedEvent(buildCreateUserId(),
             command.getEmail(), command.getLastName(), command.getFirstName(), command.getRoles());
         return event;
@@ -123,8 +123,8 @@ public class DanceUserAggregateTest {
     private PasswordSetEvent createPasswordSetEvent() {
         final TestPasswordHolder passwordHolder =
             TestPasswordHolder.Companion.CreateDefaultTest();
-        return new PasswordSetEvent( createCommand.getUserId(),
-            passwordHolder.getPasswordHash(), passwordHolder.getSalt() );
+        return new PasswordSetEvent(createCommand.getUserId(),
+            passwordHolder.getPasswordHash(), passwordHolder.getSalt());
     }
 
 }
