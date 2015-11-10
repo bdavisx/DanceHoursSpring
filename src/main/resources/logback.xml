@@ -3,7 +3,7 @@
 	<contextName>dance-hours</contextName>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>c:\temp\danceHoursSpring.log</file>
+		<file>/tmp/danceHoursSpring.log</file>
 		<append>true</append>
 		<encoder>
 			<pattern>

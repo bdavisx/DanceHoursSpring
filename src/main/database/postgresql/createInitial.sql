@@ -13,35 +13,40 @@
 --     primary key (aggregateidentifier, sequencenumber, type)
 -- );
 
-drop table dance_user;
-create table dance_user (
-    user_id uuid primary key not null,
-    email varchar(254) not null,
-    first_name varchar(255),
-    last_name varchar(255),
-    is_active bool not null
-);
-create index dance_user_index_name on dance_user (last_name, first_name);
+CREATE DATABASE dance_hours
+WITH ENCODING ='UTF8'
+OWNER =dance
+CONNECTION LIMIT =-1;
 
-drop table dance_user_roles;
-create table dance_user_roles (
-    user_id uuid not null,
-    role_id uuid not null,
-    primary key (user_id, role_id)
+DROP TABLE dance_user;
+CREATE TABLE dance_user (
+    user_id    UUID PRIMARY KEY NOT NULL,
+    email      VARCHAR(254)     NOT NULL,
+    first_name VARCHAR(255),
+    last_name  VARCHAR(255),
+    is_active  BOOL             NOT NULL
 );
+CREATE INDEX dance_user_index_name ON dance_user (last_name, first_name);
 
-drop table user_roles;
-create table user_roles (
-    role_id uuid primary key not null,
-    name varchar(255),
-    description text,
-    is_admin bool
+DROP TABLE dance_user_roles;
+CREATE TABLE dance_user_roles (
+    user_id UUID NOT NULL,
+    role_id UUID NOT NULL,
+    PRIMARY KEY (user_id, role_id)
 );
 
-drop table aggregate_passwords;
-create table aggregate_passwords (
-    aggregate_id uuid primary key not null,
-    password_hash bytea not null,
-    salt bytea not null
+DROP TABLE user_roles;
+CREATE TABLE user_roles (
+    role_id     UUID PRIMARY KEY NOT NULL,
+    name        VARCHAR(255),
+    description TEXT,
+    is_admin    BOOL
+);
+
+DROP TABLE aggregate_passwords;
+CREATE TABLE aggregate_passwords (
+    aggregate_id  UUID PRIMARY KEY NOT NULL,
+    password_hash BYTEA            NOT NULL,
+    salt          BYTEA            NOT NULL
 );
 

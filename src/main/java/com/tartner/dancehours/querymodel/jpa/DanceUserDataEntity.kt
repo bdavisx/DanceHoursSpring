@@ -30,9 +30,9 @@ public class DanceUserDataEntity {
     @Column(name = "is_active", nullable = false, insertable = true, updatable = true)
     public var isActive: Boolean = false
 
-    @OneToMany(mappedBy="dance_user_entity", targetEntity = UserRolesEntity::class)
     @JoinTable(name = "dance_user_roles", joinColumns = arrayOf(JoinColumn(name = "user_id")),
         inverseJoinColumns = arrayOf(JoinColumn(name = "role_id")))
+    @OneToMany(mappedBy="dance_user_entity", targetEntity = UserRolesEntity::class)
     public var roles: Set<UserRolesEntity> = HashSet<UserRolesEntity>()
 
     override fun hashCode(): Int {
