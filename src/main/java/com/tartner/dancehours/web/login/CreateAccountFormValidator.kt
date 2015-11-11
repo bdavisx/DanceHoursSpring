@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
 import org.springframework.validation.Validator
 
-@Component
-public class CreateAccountFormValidator : Validator {
+@Component open class CreateAccountFormValidator : Validator {
     override fun supports(clazz: Class<*>): Boolean {
         return javaClass<CreateAccountForm>().isAssignableFrom(clazz)
     }

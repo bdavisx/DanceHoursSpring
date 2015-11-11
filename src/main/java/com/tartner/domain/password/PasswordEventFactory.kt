@@ -8,8 +8,7 @@ import java.security.SecureRandom
 import java.security.spec.KeySpec
 import javax.crypto.spec.PBEKeySpec
 
-@Component
-public class PasswordEventFactory @Autowired constructor(
+@Component open class PasswordEventFactory @Autowired constructor(
     private val random: SecureRandom, private val passwordService: PasswordService) {
 
     public fun createPasswordSetEvent(aggregateId: DanceHoursId, password: String): PasswordSetEvent {

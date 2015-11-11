@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-public class CreateDanceUserCommandHandler @Autowired constructor(
+open class CreateDanceUserCommandHandler @Autowired constructor(
     private val queryModel: DefaultDanceUserAggregateQueryModel,
     private val passwordEventFactory: PasswordEventFactory,
     private val aggregateRepository: Repository<DanceUserAggregate> ) {

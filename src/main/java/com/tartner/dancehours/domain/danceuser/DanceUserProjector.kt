@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-@Component @Transactional public class DanceUserProjector @Autowired constructor(
+@Component @Transactional open class DanceUserProjector @Autowired constructor(
     @PersistenceContext private val em: EntityManager ) {
 
     @EventHandler

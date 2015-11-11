@@ -10,8 +10,7 @@ public interface DanceUserAggregateQueryModel {
     public fun emailAlreadyExists(email: String): Boolean
 }
 
-@Component
-public class DefaultDanceUserAggregateQueryModel @Autowired constructor(
+@Component open class DefaultDanceUserAggregateQueryModel @Autowired constructor(
     private val repository: DanceUserRepository ) : DanceUserAggregateQueryModel {
 
     // Note: need to make this an interface that's implemented elsewhere,

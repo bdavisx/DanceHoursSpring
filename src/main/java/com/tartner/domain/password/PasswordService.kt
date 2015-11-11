@@ -7,8 +7,7 @@ import java.security.spec.KeySpec
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
-@Component
-public class PasswordService {
+@Component open class PasswordService {
 
     fun createPasswordHash(keySpecification: KeySpec): ByteArray {
         try {

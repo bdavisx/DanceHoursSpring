@@ -6,7 +6,7 @@ import org.axonframework.eventstore.EventStore
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-@Component public class DanceUserAggregateRepository @Autowired constructor(eventStore: EventStore)
+@Component open class DanceUserAggregateRepository @Autowired constructor(eventStore: EventStore)
     : EventSourcingRepository<DanceUserAggregate>(javaClass<DanceUserAggregate>(), eventStore) {
 
     @Autowired override fun setEventBus(eventBus: EventBus) {

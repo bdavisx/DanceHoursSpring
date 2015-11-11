@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-@Component
-public class DanceUserListQueryModel @Autowired constructor(
+@Component open class DanceUserListQueryModel @Autowired constructor(
     @PersistenceContext private val em: EntityManager ) {
 
     public fun getAllUsers(): List<DanceUserListTO> {
         return em.createQuery(
-            "select due from DanceUserEntity due").resultList as List<DanceUserListTO>
+            "select due from DanceUserDataEntity due").resultList as List<DanceUserListTO>
     }
 }

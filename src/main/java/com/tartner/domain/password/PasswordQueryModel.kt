@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
-public class PasswordQueryModel
+@Component open class PasswordQueryModel
 @Autowired constructor(private val passwordService: PasswordService, private val repository: AggregatePasswordRepository) {
 
     public fun passwordsMatch(aggregateId: DanceHoursId, password: String): Boolean {
