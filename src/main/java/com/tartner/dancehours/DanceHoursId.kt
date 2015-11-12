@@ -24,7 +24,7 @@ class DanceHoursId internal constructor ( public val identifier : UUID ) : Seria
     }
 
     companion object Default {
-        private val EmptyUUID : UUID = emptyUUID()
+        public val EmptyUUID : UUID = emptyUUID()
         public val Empty = DanceHoursId(EmptyUUID)
 
         fun create(uuid : UUID) = DanceHoursId(uuid)

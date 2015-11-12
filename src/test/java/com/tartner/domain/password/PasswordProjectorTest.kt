@@ -25,7 +25,7 @@ import java.util.*
 public open class PasswordProjectorTest {
     @Autowired private var repository: AggregatePasswordRepository? = null
 
-    @Test @Throws(Exception::class)
+    @Test
     public fun checkEvent() {
         if( repository == null ) throw IllegalStateException("repository not initialized")
 
