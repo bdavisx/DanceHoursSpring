@@ -7,7 +7,13 @@ import javax.persistence.Converter
 
 @Converter class DanceHoursIdToUUIDConverter : AttributeConverter<DanceHoursId, UUID> {
     override fun convertToDatabaseColumn(attribute : DanceHoursId?) : UUID? {
-        return attribute?.identifier ?: DanceHoursId.EmptyUUID
+        attribute?.let {
+            if(attribute.equals(DanceHoursId.Empty)) return null
+
+            return attribute.identifier
+        }
+
+        return null
     }
 
     override fun convertToEntityAttribute(dbData : UUID?) : DanceHoursId? {
