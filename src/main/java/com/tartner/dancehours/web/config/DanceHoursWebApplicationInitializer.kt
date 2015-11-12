@@ -9,11 +9,11 @@ import javax.servlet.ServletException
 
 public open class DanceHoursWebApplicationInitializer : WebApplicationInitializer {
 
-    @throws(ServletException::class)
+    @Throws(ServletException::class)
     override fun onStartup(servletContext: ServletContext) {
         //Load application context
         val rootContext = AnnotationConfigWebApplicationContext()
-        rootContext.register(*arrayOf<Class<*>>(javaClass<WebMVCConfiguration>()))
+        rootContext.register(*arrayOf<Class<*>>(WebMVCConfiguration::class.java))
         rootContext.displayName = "Dance Hours"
 
         //Context loader listener

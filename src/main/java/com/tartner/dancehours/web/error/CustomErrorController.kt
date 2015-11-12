@@ -38,7 +38,7 @@ class CustomErrorController {
 
     private fun getExceptionMessage(throwable: Throwable?, statusCode: Int?): String? {
         if (throwable != null) {
-            return Throwables.getRootCause(throwable).getMessage()
+            return Throwables.getRootCause(throwable).message
         }
         val httpStatus = HttpStatus.valueOf(statusCode!!)
         return httpStatus.reasonPhrase

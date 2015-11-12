@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod
     val queryRepository: DonationEntryQueryRepository ) {
 
     @RequestMapping( "/NewVolunteerDonationEntry", method = arrayOf(RequestMethod.GET))
-
     fun get(): String {
         val userId: String = SecurityContextHolder.getContext().authentication.name
         val form: DonationEntryForm = queryRepository.CreateNewEntryForm(userId)

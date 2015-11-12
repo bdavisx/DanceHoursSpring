@@ -11,7 +11,7 @@ import javax.sql.DataSource
 
 @Configuration
 @PropertySource(value = *arrayOf("classpath:persistence.properties"))
-public open class ProductionPersistenceConfiguration {
+open class ProductionPersistenceConfiguration {
     private @Autowired var environment: Environment? = null
 
     @Bean

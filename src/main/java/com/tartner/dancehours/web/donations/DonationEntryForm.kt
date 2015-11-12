@@ -6,12 +6,12 @@ import org.joda.money.Money
 import org.joda.time.DateTime
 import java.math.BigDecimal
 
-public data class DonationEntryForm(
-    public var entryId: DanceHoursId,
-
-    public var memberDonationWasProvidedFor: DanceHoursId,
-    public var donationTypeId: DanceHoursId,
-    public var dateOfDonation: DateTime = DateTime.now(),
-    public var numberOfHours: Short = 0,
-    public var amountOfDonation: Money = Money.of( CurrencyUnit.USD, BigDecimal(0)),
-    public var description: String = "" )
+class DonationEntryForm() {
+    public var entryId: DanceHoursId = DanceHoursId.Empty
+    public var memberDonationWasProvidedFor: DanceHoursId = DanceHoursId.Empty
+    public var donationTypeId: DanceHoursId = DanceHoursId.Empty
+    public var dateOfDonation: DateTime = DateTime.now()
+    public var numberOfHours: Short = 0
+    public var amountOfDonation: Money = Money.of( CurrencyUnit.USD, BigDecimal(0))
+    public var description: String = ""
+}

@@ -7,7 +7,7 @@ import java.util.*
 
 public class TestPasswordDataGenerator(private val passwordService: PasswordService) {
 
-    @throws(NoSuchAlgorithmException::class)
+    @Throws(NoSuchAlgorithmException::class)
     public fun makePassword(password: String) {
         val salt = SecureRandom.getInstanceStrong().generateSeed(SaltLength)
 

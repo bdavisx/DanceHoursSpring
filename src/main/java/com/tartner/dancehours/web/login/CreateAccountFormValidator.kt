@@ -7,7 +7,7 @@ import org.springframework.validation.Validator
 
 @Component open class CreateAccountFormValidator : Validator {
     override fun supports(clazz: Class<*>): Boolean {
-        return javaClass<CreateAccountForm>().isAssignableFrom(clazz)
+        return CreateAccountForm::class.java.isAssignableFrom(clazz)
     }
 
     override fun validate(target: Any, errors: Errors) {

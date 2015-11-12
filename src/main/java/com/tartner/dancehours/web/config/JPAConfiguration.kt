@@ -29,9 +29,9 @@ public open class JPAConfiguration {
 
     @Bean
     public open fun jpaTransactionManager(): JpaTransactionManager {
-        val jpaTransactionManager = JpaTransactionManager(entityManagerFactory().`object`)
+        val jpaTransactionManager = JpaTransactionManager()
         jpaTransactionManager.dataSource = dataSource
-        jpaTransactionManager.entityManagerFactory = entityManagerFactory().getObject()
+//        jpaTransactionManager.entityManagerFactory = entityManagerFactory().`object`
         return jpaTransactionManager
     }
 

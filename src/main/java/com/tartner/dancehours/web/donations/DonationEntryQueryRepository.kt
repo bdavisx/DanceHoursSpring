@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service
 public class DonationEntryQueryRepository @Autowired constructor( val identifierGenerator : IdentifierGenerator) {
 
     public fun CreateNewEntryForm(userId: String): DonationEntryForm {
-        val form = DonationEntryForm(
-            entryId = identifierGenerator.newId(),
-            memberDonationWasProvidedFor = defaultMemberIdForDonations( userId ),
-            donationTypeId = defaultDonationType( userId ) )
+        val form = DonationEntryForm().apply {
+            entryId = identifierGenerator.newId()
+            memberDonationWasProvidedFor = defaultMemberIdForDonations(userId)
+            donationTypeId = defaultDonationType(userId)
+        }
 
         return form
     }

@@ -16,7 +16,7 @@ public open class SecurityConfig : WebSecurityConfigurerAdapter() {
     // or text link/code
 
 
-    @throws(Exception::class)
+    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests().anyRequest().permitAll()
 
@@ -32,7 +32,7 @@ public open class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Autowired
-    @throws(Exception::class)
+    @Throws(Exception::class)
     public open fun configureGlobal(auth: AuthenticationManagerBuilder) {
         auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
     }

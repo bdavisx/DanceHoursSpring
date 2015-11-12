@@ -32,7 +32,7 @@ import javax.crypto.spec.PBEKeySpec
         /* Note: Note why the right margin is so small, and where it came from
         (Python style document) - also fits well on most website code windows. */
 
-        private val log = LoggerFactory.getLogger(javaClass<PasswordEventFactory>())
+        private val log = LoggerFactory.getLogger(PasswordEventFactory::class.java)
 
         private val SaltLength = 32
     }

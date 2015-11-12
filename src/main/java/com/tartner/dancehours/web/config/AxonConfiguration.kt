@@ -26,7 +26,7 @@ import javax.sql.DataSource
 
 @Configuration
 @AnnotationDriven
-public open class AxonConfiguration {
+open class AxonConfiguration {
     @Autowired private var dataSource: DataSource? = null
     @Autowired private var platformTransactionManager: PlatformTransactionManager? = null
 

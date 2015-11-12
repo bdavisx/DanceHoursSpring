@@ -5,7 +5,6 @@ import nz.net.ultraq.thymeleaf.LayoutDialect
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.stereotype.Controller
@@ -27,11 +26,15 @@ import org.thymeleaf.templateresolver.TemplateResolver
 
 // TODO: organize pom references
 
-@Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = arrayOf(Application::class))
-@EnableTransactionManagement
+@EnableTransactionManagement()
 public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
+
+    @Bean
+    public open fun propertyConfigInDev(): PropertySourcesPlaceholderConfigurer {
+        return PropertySourcesPlaceholderConfigurer()
+    }
 
     @Bean(name = arrayOf("messageSource"))
     public open fun messageSource(): MessageSource {
@@ -86,7 +89,7 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
      * Handles favicon.ico requests assuring no `404 Not Found` error is returned.
      */
     @Controller
-    class FaviconController {
+    public class FaviconController {
         @RequestMapping("favicon.ico")
         fun favicon(): String {
             return "forward:/resources/images/favicon.ico"
@@ -101,9 +104,5 @@ public open class WebMVCConfiguration : WebMvcConfigurerAdapter() {
         private val RESOURCES_LOCATION = "/resources/"
         private val RESOURCES_HANDLER = RESOURCES_LOCATION + "**"
 
-        @Bean
-        public open fun propertyConfigInDev(): PropertySourcesPlaceholderConfigurer {
-            return PropertySourcesPlaceholderConfigurer()
-        }
     }
 }
