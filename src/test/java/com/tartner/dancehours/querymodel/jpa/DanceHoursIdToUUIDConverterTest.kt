@@ -56,6 +56,4 @@ class DanceHoursIdToUUIDConverterTest {
 
         MatcherAssert.assertThat(convertedId, equalTo(DanceHoursId.Empty))
     }
-
-
 }

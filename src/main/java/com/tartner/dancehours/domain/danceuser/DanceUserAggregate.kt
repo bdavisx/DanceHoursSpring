@@ -14,8 +14,7 @@ import java.util.*
 
 public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>() {
     @AggregateIdentifier private var id: DanceHoursId = DanceHoursId.Default.Empty
-    private var firstName: String = String.Empty
-    private var lastName: String = String.Empty
+    private var fullName: String = String.Empty
     private var email: String = String.Empty
     private var password: EncodedPassword = EncodedPassword.Invalid
     private val userRoles: List<DanceUserRole> = ArrayList<DanceUserRole>()
@@ -23,7 +22,8 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
     fun create(command: CreateDanceUserCommand, queryModel: DanceUserAggregateQueryModel,
         passwordSetEvent: PasswordSetEvent) {
 
-        initialize(command.userId, command.email, command.lastName, command.firstName, queryModel)
+        // TODO: change fullName to class, w/ it's own validation capabilities
+        initialize(command.userId, command.email, command.fullName, queryModel)
         // TODO: any kind of validation here? I think not by us, we should have a different class
         // do validation
         apply(passwordSetEvent)
@@ -35,15 +35,14 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
 
     // TODO: create classes for first/last name/email; have already screwed them up,
     // this should make serialization go easier as well; look @ where else this s/b done
-    private fun initialize(userId: DanceHoursId, email: String, lastName: String, firstName: String,
+    private fun initialize(userId: DanceHoursId, email: String, fullName: String,
         queryModel: DanceUserAggregateQueryModel) {
         /* Note: do we want the "regular" or "container" parameters first?
             "regular": they are the more important part of the method.
          */
-        validateInitialize(userId, email, lastName, firstName, queryModel)
+        validateInitialize(userId, email, fullName, queryModel)
 
-        val event = DanceUserCreatedEvent( userId, email, lastName, firstName,
-            HashSet<DanceUserRole>())
+        val event = DanceUserCreatedEvent( userId, email, fullName, HashSet<DanceUserRole>())
         apply(event)
     }
 
@@ -51,8 +50,7 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
     private fun danceUserCreated(event: DanceUserCreatedEvent) {
         id = event.userId
         email = event.email
-        lastName = event.lastName
-        firstName = event.firstName
+        fullName = event.fullName
     }
 
     @EventSourcingHandler
@@ -63,12 +61,12 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
         password = EncodedPassword(event)
     }
 
-    private fun validateInitialize(userId : DanceHoursId, email : String, lastName : String,
-        firstName : String, queryModel : DanceUserAggregateQueryModel) {
+    private fun validateInitialize(userId : DanceHoursId, email : String, fullName : String,
+        queryModel : DanceUserAggregateQueryModel) {
         Preconditions.checkArgument(!userId.equals(DanceHoursId.Empty), "No userId supplied")
         KPreconditions.checkNotEmpty(email, "email was empty")
-        Preconditions.checkArgument(!lastName.isEmpty() || !firstName.isEmpty(), "First or last " +
-            "name was empty")
+        Preconditions.checkArgument(!fullName.isEmpty(), "Name was empty")
+        Preconditions.checkArgument(fullName.length <= MaximumNameSize, "Name too long")
 
         if (queryModel.emailAlreadyExists(email)) {
             throw DanceUserEmailAlreadyExistsException(email)
@@ -78,5 +76,8 @@ public class DanceUserAggregate : AbstractAnnotatedAggregateRoot<DanceHoursId>()
         }
     }
 
+    companion object {
+        private val MaximumNameSize = 1024
+    }
 }
 

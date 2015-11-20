@@ -22,8 +22,7 @@ public class CreateAccountController @Autowired constructor(
     @RequestMapping(value = "/createAccount", method = arrayOf(RequestMethod.GET))
     public fun get(model: Model): String {
         val initialForm = CreateAccountForm()
-        initialForm.firstName = "Bill"
-        initialForm.lastName = "Davis"
+        initialForm.fullName = "Bill Davis"
         initialForm.email = "bill@tartner.com"
         initialForm.password = "Abc@123"
         model.addAttribute("createAccountForm", initialForm)
@@ -48,7 +47,7 @@ public class CreateAccountController @Autowired constructor(
         // TODO: find the sequential UUID generator and use here
         commandGateway.send(
             CreateDanceUserCommand(DanceHoursId.create(UUID.randomUUID()), form.email,
-                form.lastName, form.firstName, form.password, HashSet<DanceUserRole>()))
+                form.fullName, form.password, HashSet<DanceUserRole>()))
 
         return "/home/homeSignedIn"
     }

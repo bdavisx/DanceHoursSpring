@@ -22,8 +22,7 @@ import javax.persistence.PersistenceContext
         val userRecord = DanceUserDataEntity()
         userRecord.userId = event.userId.identifier
         userRecord.email = event.email
-        userRecord.firstName = event.firstName
-        userRecord.lastName = event.lastName
+        userRecord.fullName = event.fullName
         userRecord.isActive = true
         em.persist(userRecord)
     }

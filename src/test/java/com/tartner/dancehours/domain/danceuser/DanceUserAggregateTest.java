@@ -37,8 +37,7 @@ public class DanceUserAggregateTest {
     private static String UUIDString = "e78320a0-48b9-490a-8b1b-f5bcdcf34995";
     public static final UUID CreateUserId = UUID.fromString(UUIDString);
     public static final String CreateEmail = "bdavisx@yahoo.com";
-    public static final String CreateFirstName = "Bill";
-    public static final String CreateLastName = "Davis";
+    public static final String CreateFullName = "Bill Davis";
     public static final String CreatePassword = "notReal";
 
     private FixtureConfiguration fixture;
@@ -109,14 +108,14 @@ public class DanceUserAggregateTest {
     private CreateDanceUserCommand createValidCreateCommand() {
         CreateDanceUserCommand command =
             new CreateDanceUserCommand(buildCreateUserId(), CreateEmail,
-                CreateLastName, CreateFirstName, CreatePassword, new HashSet<>());
+                CreateFullName, CreatePassword, new HashSet<>());
         return command;
     }
 
     private DanceUserCreatedEvent createCreatedEventForValidCommand(
         final CreateDanceUserCommand command) {
         DanceUserCreatedEvent event = new DanceUserCreatedEvent(buildCreateUserId(),
-            command.getEmail(), command.getLastName(), command.getFirstName(), command.getRoles());
+            command.getEmail(), command.getFullName(), command.getRoles());
         return event;
     }
 

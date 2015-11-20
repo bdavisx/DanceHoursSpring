@@ -19,12 +19,8 @@ public class DanceUserDataEntity {
     public var email: String = String.Empty
 
     @Basic
-    @Column(name = "first_name", nullable = true, insertable = true, updatable = true, length = 255)
-    public var firstName: String = String.Empty
-
-    @Basic
-    @Column(name = "last_name", nullable = true, insertable = true, updatable = true, length = 255)
-    public var lastName: String = String.Empty
+    @Column(name = "full_name", nullable = false, insertable = true, updatable = true, length = 1024)
+    public var fullName: String = String.Empty
 
     @Basic
     @Column(name = "is_active", nullable = false, insertable = true, updatable = true)

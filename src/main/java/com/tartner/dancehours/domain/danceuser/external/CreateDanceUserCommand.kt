@@ -7,8 +7,7 @@ import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier
 public data class CreateDanceUserCommand(
     @TargetAggregateIdentifier val userId: DanceHoursId,
     var email: String,
-    var lastName: String,
-    var firstName: String,
+    var fullName: String,
     var password: String,
     var roles: Set<DanceUserRole>
     )

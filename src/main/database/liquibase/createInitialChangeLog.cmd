@@ -1,0 +1,1 @@
+liquibase --driver=org.postgresql.Driver --classpath=C:\Users\bill\.IntelliJIdea15\config\jdbc-drivers\postgresql-9.2-1002.jdbc4.jar --changeLogFile=initial.changelog.xml --url="jdbc:postgresql://localhost:5432/dance_hours" --username=dance --password=vvGd@PLio1P3 generateChangeLog

@@ -6,10 +6,7 @@ import org.hibernate.validator.constraints.NotBlank
 
 public data class CreateAccountForm(
     @NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
-    public var firstName: String = "",
-
-    @NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
-    public var lastName: kotlin.String = "",
+    public var fullName: String = "",
 
     @NotBlank(message = StandardUIMessageConstants.NOT_BLANK_MESSAGE)
     @Email(message = StandardUIMessageConstants.EMAIL_MESSAGE)

@@ -22,11 +22,9 @@ DROP TABLE dance_user;
 CREATE TABLE dance_user (
     user_id    UUID PRIMARY KEY NOT NULL,
     email      VARCHAR(254)     NOT NULL,
-    first_name VARCHAR(255),
-    last_name  VARCHAR(255),
+    full_name VARCHAR(1024)     not null,
     is_active  BOOL             NOT NULL
 );
-CREATE INDEX dance_user_index_name ON dance_user (last_name, first_name);
 
 DROP TABLE dance_user_roles;
 CREATE TABLE dance_user_roles (
